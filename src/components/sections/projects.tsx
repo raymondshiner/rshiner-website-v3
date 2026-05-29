@@ -48,10 +48,10 @@ function ProjectCard({
 }) {
   const wrapperClass = featured
     ? "group relative flex flex-col gap-5 border-2 border-cyan bg-bg-elev p-6 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal"
-    : "group flex flex-col gap-4 border-2 border-line bg-bg-elev p-5 transition-all hover:border-cyan hover:-translate-y-1"
+    : "group relative flex flex-col gap-4 border-2 border-line bg-bg-elev p-5 transition-all hover:border-cyan hover:-translate-y-1"
 
-  const Inner = (
-    <>
+  return (
+    <Card className={wrapperClass}>
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           {featured && (
@@ -61,7 +61,16 @@ function ProjectCard({
             </Badge>
           )}
           <h3 className="text-xl font-bold tracking-tight text-fg sm:text-2xl">
-            {project.title}
+            {project.caseStudy ? (
+              <Link
+                to={`/case-study/${project.caseStudy}`}
+                className="outline-none before:absolute before:inset-0 before:content-[''] focus-visible:underline"
+              >
+                {project.title}
+              </Link>
+            ) : (
+              project.title
+            )}
           </h3>
           <p className="text-sm text-cyan">{project.tagline}</p>
         </div>
@@ -78,14 +87,13 @@ function ProjectCard({
         ))}
       </ul>
 
-      <div className="mt-auto flex flex-wrap gap-3 pt-2 text-xs uppercase tracking-wider">
+      <div className="relative z-10 mt-auto flex flex-wrap gap-3 pt-2 text-xs uppercase tracking-wider">
         {project.github && (
           <a
             href={project.github}
             target="_blank"
             rel="noreferrer noopener"
             className="inline-flex items-center gap-1 text-fg-muted hover:text-cyan"
-            onClick={(e) => e.stopPropagation()}
           >
             <GithubIcon className="size-3.5" /> Code
           </a>
@@ -96,21 +104,11 @@ function ProjectCard({
             target="_blank"
             rel="noreferrer noopener"
             className="inline-flex items-center gap-1 text-fg-muted hover:text-cyan"
-            onClick={(e) => e.stopPropagation()}
           >
             Live ↗
           </a>
         )}
       </div>
-    </>
+    </Card>
   )
-
-  if (project.caseStudy) {
-    return (
-      <Link to={`/case-study/${project.caseStudy}`} className={wrapperClass}>
-        {Inner}
-      </Link>
-    )
-  }
-  return <Card className={wrapperClass}>{Inner}</Card>
 }

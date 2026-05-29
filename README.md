@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# rshiner-website-v3
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Raymond Shiner's personal site — third iteration. AI-native portfolio that carries the Andromeda theme from my Hyprland desktop into the browser.
 
-Currently, two official plugins are available:
+Live: _(deploy target: Vercel)_
+Predecessors: [v1](https://github.com/raymondshiner/rshiner-website-v1) · [v2](https://github.com/raymondshiner/rshiner-website-v2)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What this is
 
-## React Compiler
+- Single-page portfolio with a `/now` living page and per-project case studies via MDX
+- "Ask Raymond" chat backed by the Anthropic SDK (`api/ask.ts`)
+- Workflow section that names the actual subagent crew (Jeeves, Friday, Watson)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+| | |
+|---|---|
+| Build | Vite + TypeScript (strict) |
+| Framework | React 19 + React Router 7 |
+| Styling | Tailwind v4 + shadcn/ui (Radix Nova) |
+| Content | MDX via `@mdx-js/rollup` |
+| Motion | `motion` (Framer Motion successor) |
+| AI | `@anthropic-ai/sdk` for the chat endpoint |
+| Hosting | Vercel (SPA rewrite + immutable asset cache via `vercel.json`) |
+| Fonts | Geist Sans + JetBrains Mono |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Palette is Andromeda dark: `#1C1E26` bg, `#00E8C6` cyan accent, `#B084EB` purple.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Scripts
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev         # Vite dev server on :5173
+npm run build       # tsc -b && vite build
+npm run preview     # serve the production build
+npm run lint        # eslint
+npm run verify-ui   # Playwright UI checks (desktop + mobile, screenshots → /tmp/rshiner-v3-shots)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`verify-ui` needs the dev server running. It drives both a 1280×900 desktop context and an iPhone 13 mobile context against `http://localhost:5173/`, asserts the hero/workflow/now sections render, and saves screenshots for visual review.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Layout
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+  components/       # sections/, layout/, chat/, ui/ (shadcn)
+  content/          # now.mdx + case-studies/*.mdx
+  pages/            # home, now, case-study
+  lib/              # data.ts (skills/experience/agents), projects.ts, site.ts
+api/
+  ask.ts            # Anthropic-backed chat handler (Vercel function)
+tests/
+  verify-ui.mjs     # Playwright check
+```
+
+## Environment
+
+- `ANTHROPIC_API_KEY` — required for the `/api/ask` chat endpoint.
