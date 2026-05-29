@@ -8,7 +8,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/#work", label: "Work" },
   { to: "/#workflow", label: "Workflow" },
-  { to: "/blog", label: "Writing" },
+  { to: "/now", label: "Now" },
   { to: "/#contact", label: "Contact" },
 ]
 

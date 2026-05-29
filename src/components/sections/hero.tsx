@@ -3,7 +3,12 @@ import { ArrowRight, Sparkles } from "lucide-react"
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 
-const headlineLines = ["I build with", "AI as a", "co-engineer."]
+const headlineLines = [
+  "Code was the medium.",
+  "AI is the new one.",
+  "The work is still the work.",
+]
+const highlightWords = new Set(["AI", "work", "work."])
 
 export function Hero() {
   const prefersReduced = useReducedMotion()
@@ -40,9 +45,7 @@ export function Hero() {
                   <span
                     key={`${line}-${j}`}
                     className={
-                      word === "AI" || word === "co-engineer."
-                        ? "text-cyan glow-cyan"
-                        : ""
+                      highlightWords.has(word) ? "text-cyan glow-cyan" : ""
                     }
                   >
                     {word}
@@ -60,9 +63,10 @@ export function Hero() {
             className="mt-8 max-w-xl text-base text-fg-muted sm:text-lg"
           >
             I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
-            engineer who ships systems and the agentic workflows that build them.
-            Five years of frontend craft. Two of leading teams. A desktop full of
-            hand-built tools.
+            engineer with five years of frontend craft and two of leading teams.
+            The way I make things has changed; what I make hasn't. The job is
+            solving unique problems in the digital space — and the medium just
+            got faster, broader, and a lot more interesting.
           </motion.p>
 
           <motion.div
@@ -92,13 +96,14 @@ export function Hero() {
             // currently
           </p>
           <ul className="space-y-3 text-sm">
-            <StatusRow label="role" value="SWE @ Divisions Inc" />
+            <StatusRow label="status" value="Open for new work" />
             <StatusRow
               label="building"
               value="Andromeda dotfiles + agent crew"
             />
             <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
-            <StatusRow label="ai" value="Claude Code + custom subagents" />
+            <StatusRow label="ai" value="Claude Code · ChatGPT · own SDK" />
+            <StatusRow label="surface" value="Terminal-first, post-IDE" />
             <StatusRow label="based" value="Spokane Valley, WA" />
           </ul>
         </motion.aside>

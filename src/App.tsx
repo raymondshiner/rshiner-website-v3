@@ -5,8 +5,7 @@ import { Footer } from "@/components/layout/footer"
 import { AskRaymond } from "@/components/chat/ask-raymond"
 
 const HomePage = lazy(() => import("@/pages/home"))
-const BlogPage = lazy(() => import("@/pages/blog"))
-const BlogPostPage = lazy(() => import("@/pages/blog-post"))
+const NowPage = lazy(() => import("@/pages/now"))
 const CaseStudyPage = lazy(() => import("@/pages/case-study"))
 
 export default function App() {
@@ -17,8 +16,7 @@ export default function App() {
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/now" element={<NowPage />} />
             <Route path="/case-study/:slug" element={<CaseStudyPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

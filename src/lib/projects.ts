@@ -14,7 +14,7 @@ export const projects: ProjectMeta[] = [
   {
     slug: "portfolio-v3",
     title: "Portfolio v3 (this site)",
-    tagline: "Vibe-coded with Claude, hand-finished with care.",
+    tagline: "The portfolio you're reading, built with the workflow it describes.",
     description:
       "AI-native portfolio: Andromeda theme, brutalist type, MDX case studies, in-site AI chat. Built end-to-end alongside my Claude Code agent setup.",
     stack: ["React 19", "Vite", "Tailwind v4", "shadcn/ui", "MDX", "Motion"],

@@ -3,6 +3,39 @@ import { Section } from "@/components/ui/section"
 import { Card } from "@/components/ui/card"
 import { agentRoles } from "@/lib/data"
 
+const humanCalls = [
+  {
+    title: "Architecture for systems that outlive me.",
+    detail:
+      "Once a foundation decision is baked in, fixing it costs months. Agents are fast — too fast for decisions that should be slow.",
+  },
+  {
+    title: "What not to build.",
+    detail:
+      "AI is biased toward building — yes is cheap, no is hard. Scope creep, over-engineering, abstractions before they earn their keep. Saying no stays with me.",
+  },
+  {
+    title: "Problem framing before the keyboard.",
+    detail:
+      "If I can't write the spec in one paragraph, I'm not ready to hand it to an agent.",
+  },
+  {
+    title: "Security, auth, anything sensitive.",
+    detail:
+      "Confidently-wrong output here is catastrophic. Auth flows, session handling, anything with a compliance line of code — I read those with my own eyes.",
+  },
+  {
+    title: "Hiring and people decisions.",
+    detail:
+      "Performance, conflict, mentoring, hiring calls. People deserve a human read — not a summary.",
+  },
+  {
+    title: "Naming things that live in public.",
+    detail:
+      "Variables, products, repos, project names. The names outlive me and the taste shows. AI proposes; I dispose.",
+  },
+]
+
 const sampleConfig = `# ~/.claude/agents/jeeves.md
 ---
 name: jeeves
@@ -22,27 +55,32 @@ export function Workflow() {
       id="workflow"
       eyebrow="How I build"
       title="My agent crew."
-      description="I treat my AI workflow like part of the stack. Custom subagents, each with a job, configured in Markdown and version-controlled with the rest of my dotfiles. The site you're reading was vibe-coded with them."
+      description="I treat my AI workflow like part of the stack. Custom subagents, each with a job, configured in Markdown and version-controlled with my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development. Including the site you're reading."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-4">
           {agentRoles.map((agent) => (
             <Card
               key={agent.name}
-              className="flex flex-col gap-3 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-purple"
+              className="flex flex-col gap-4 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-purple"
             >
               <div className="flex items-center gap-3">
-                <span className="flex size-10 items-center justify-center border-2 border-purple">
+                <span className="flex size-10 shrink-0 items-center justify-center border-2 border-purple">
                   <agent.icon className="size-5 text-purple" />
                 </span>
-                <div>
-                  <p className="font-bold text-fg">{agent.name}</p>
+                <div className="min-w-0">
+                  <p className="font-bold leading-tight text-fg">
+                    {agent.name}
+                  </p>
                   <p className="text-xs uppercase tracking-wider text-fg-muted">
                     {agent.duty}
                   </p>
                 </div>
               </div>
               <p className="text-sm text-fg-muted">{agent.detail}</p>
+              <p className="mt-auto border-t-2 border-line pt-3 text-sm italic text-purple/85">
+                {agent.quote}
+              </p>
             </Card>
           ))}
         </div>
@@ -84,6 +122,36 @@ export function Workflow() {
             — fully open source.
           </div>
         </Card>
+      </div>
+
+      <div className="mt-16 border-t-2 border-line-strong pt-12 sm:mt-20">
+        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
+          <p className="text-xs uppercase tracking-[0.3em] text-cyan">
+            — But
+          </p>
+          <h3 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
+            What stays human.
+          </h3>
+        </div>
+        <p className="mb-10 max-w-2xl text-sm text-fg-muted sm:text-base">
+          Agents do execution. Judgment is mine. The list of things I don't
+          delegate is shorter than I'd expect — but the items on it are
+          non-negotiable.
+        </p>
+        <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          {humanCalls.map((item, i) => (
+            <li
+              key={item.title}
+              className="border-l-2 border-cyan pl-5"
+            >
+              <p className="mb-2 text-xs uppercase tracking-[0.25em] text-fg-muted">
+                / 0{i + 1}
+              </p>
+              <h4 className="mb-1.5 font-bold text-fg">{item.title}</h4>
+              <p className="text-sm text-fg-muted">{item.detail}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </Section>
   )

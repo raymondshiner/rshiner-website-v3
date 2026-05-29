@@ -17,9 +17,9 @@ const fallbackResponses: Record<string, string> = {
   stack:
     "React 19, TypeScript, Tailwind v4, Vite, shadcn/ui. C# on the backend when needed. Apollo GraphQL, MS Graph + MSAL in production.",
   agent:
-    "He runs a custom Claude Code crew — Jeeves (Linux + desktop), Friday (research), Explore (codebase search), Plan (architect). All version-controlled in his dotfiles.",
+    "He runs a custom Claude Code crew of three: Jeeves (Archlinux intern — desktop/dotfiles), Friday (research assistant — web research and recs), Watson (Solutions Partner — actual code work). All version-controlled in his dotfiles.",
   freelance:
-    "Yes — open for new collaborations as of 2026. raymondshiner@gmail.com is the fastest path.",
+    "Yes — fully open right now. No current full-time gig as of May 2026, taking full-time, contract, and freelance leads. raymondshiner@gmail.com is the fastest path.",
 }
 
 export function AskRaymond() {
@@ -28,7 +28,7 @@ export function AskRaymond() {
     {
       role: "assistant",
       content:
-        "Hey — I'm an AI trained on Raymond's resume, projects, and writing. Ask me anything about his work.",
+        "Hey — I'm an AI primed on Raymond's resume, projects, and /now page. Ask me anything about his work.",
     },
   ])
   const [input, setInput] = useState("")

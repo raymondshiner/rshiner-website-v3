@@ -2,12 +2,11 @@ import type { LucideIcon } from "lucide-react"
 import {
   Bot,
   Code2,
-  GitBranch,
+  Hammer,
   Layers,
   Sparkles,
   Terminal,
   Users,
-  Wrench,
 } from "lucide-react"
 
 export interface SkillCategory {
@@ -37,14 +36,15 @@ export const skillCategories: SkillCategory[] = [
   {
     icon: Bot,
     title: "AI-native workflow",
-    summary: "Building with agents, not just chat.",
+    summary: "Conversation as development.",
     items: [
-      "Claude Code",
-      "Custom subagents",
+      "Claude Code (CLI)",
+      "Custom subagent crew",
       "Anthropic SDK",
+      "ChatGPT / Claude UI",
       "MCP servers",
-      "Vercel AI SDK",
-      "Vibe-coded prototypes",
+      "Production LLM tooling",
+      "Post-IDE workflow",
     ],
     accent: "purple",
   },
@@ -87,11 +87,10 @@ export interface ExperienceEntry {
 export const experience: ExperienceEntry[] = [
   {
     title: "Software Engineer",
-    company: "Divisions Inc",
-    period: "May 2023 — present",
+    company: "Divisions Maintenance Group",
+    period: "May 2023 — May 2026",
     description:
-      "Frontend engineer on a federated-module architecture migration. Greenfield feature work alongside surgical upgrades to existing apps.",
-    current: true,
+      "Owned greenfield builds and complete app rewrites — including a novel UI component for navigating complex, nuanced hierarchies, and a core infrastructure shift from a fragile segmented/replicated architecture to module federation. Built custom LLM-powered migration agents that moved teams off seven-year-old internal libraries onto modern replacements. Drove clean-code patterns, testing standards, and cross-team facilitation throughout.",
   },
   {
     title: "Founding Engineer",
@@ -126,6 +125,7 @@ export interface AgentRole {
   icon: LucideIcon
   name: string
   duty: string
+  quote: string
   detail: string
 }
 
@@ -133,29 +133,25 @@ export const agentRoles: AgentRole[] = [
   {
     icon: Terminal,
     name: "Jeeves",
-    duty: "Personal Linux assistant",
+    duty: "Archlinux Intern",
+    quote: "“Take care of it, Jeeves.”",
     detail:
       "Owns desktop customization, hotkeys, packages, dotfiles. Knows the Andromeda theme by heart and the Hyprland config by name.",
   },
   {
     icon: Sparkles,
     name: "Friday",
-    duty: "Research + recommendations",
+    duty: "Research Assistant",
+    quote: "“Quick question…”",
     detail:
       "Internet research, product picks, troubleshooting. Synthesizes multiple sources into one actionable answer.",
   },
   {
-    icon: GitBranch,
-    name: "Explore",
-    duty: "Code search across repos",
+    icon: Hammer,
+    name: "Watson",
+    duty: "Solutions Partner",
+    quote: "“Watson! I have an idea…”",
     detail:
-      "Read-only spelunker. Finds files, greps for symbols, answers “where is X defined?” without hogging context.",
-  },
-  {
-    icon: Wrench,
-    name: "Plan",
-    duty: "Implementation architect",
-    detail:
-      "Steps, files, tradeoffs. Lays out the path before code is written.",
+      "Pair-partner for code. Builds features, fixes bugs, ships deploys. Spawns with shadcn, Playwright, and Chrome DevTools MCPs ready in hand.",
   },
 ]
