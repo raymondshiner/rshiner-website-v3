@@ -99,7 +99,7 @@ export function Hero() {
             <StatusRow label="status" value="Open for new work" />
             <StatusRow
               label="building"
-              value="Andromeda dotfiles + agent crew"
+              value="crew-quarters + Andromeda desktop"
             />
             <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
             <StatusRow label="ai" value="Claude Code · ChatGPT · own SDK" />

@@ -24,13 +24,13 @@ export const projects: ProjectMeta[] = [
     highlight: true,
   },
   {
-    slug: "dotfiles-andromeda",
-    title: "Andromeda dotfiles + Jeeves",
+    slug: "crew-quarters-andromeda",
+    title: "crew-quarters + the agent crew",
     tagline: "Hand-built Hyprland desktop with a Claude Code agent crew.",
     description:
-      "Cross-platform dotfiles repo (Arch/Hyprland + macOS) with custom waybar modules, GTK popup menus, and a stack of Claude Code subagents (Jeeves, Friday, Explore, Plan) wired into the workflow.",
+      "Cross-platform dotfiles repo (Arch/Hyprland + macOS) with custom waybar modules, GTK popup menus, and a Claude Code crew of three custom subagents — Jeeves (system), Watson (code), Friday (research) — wired into the workflow.",
     stack: ["Hyprland", "Python (GTK)", "Zsh", "Claude Code", "Subagents"],
-    github: "https://github.com/raymondshiner/dotfiles",
+    github: "https://github.com/raymondshiner/crew-quarters",
     highlight: true,
   },
   {

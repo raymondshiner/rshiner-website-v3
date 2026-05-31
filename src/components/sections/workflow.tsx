@@ -55,7 +55,7 @@ export function Workflow() {
       id="workflow"
       eyebrow="How I build"
       title="My agent crew."
-      description="I treat my AI workflow like part of the stack. Custom subagents, each with a job, configured in Markdown and version-controlled with my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development. Including the site you're reading."
+      description="I treat my AI workflow like part of the stack. A crew of custom subagents, each with a job, configured in Markdown and version-controlled in my crew-quarters repo. The skill isn't prompting — it's fluency. Conversation IS development. Including the site you're reading."
     >
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
         <div className="space-y-4">
@@ -112,12 +112,12 @@ export function Workflow() {
           <div className="border-t-2 border-line px-4 py-3 text-xs text-fg-muted">
             From{" "}
             <a
-              href="https://github.com/raymondshiner/dotfiles"
+              href="https://github.com/raymondshiner/crew-quarters"
               target="_blank"
               rel="noreferrer noopener"
               className="text-cyan underline-offset-4 hover:underline"
             >
-              raymondshiner/dotfiles
+              raymondshiner/crew-quarters
             </a>{" "}
             — fully open source.
           </div>
