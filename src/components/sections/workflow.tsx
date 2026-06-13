@@ -57,31 +57,47 @@ export function Workflow() {
       title="My agent crew."
       description="I treat my AI workflow like part of the stack. A crew of custom subagents, each with a job, configured in Markdown and version-controlled in my crew-quarters repo. The skill isn't prompting — it's fluency. Conversation IS development. Including the site you're reading."
     >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-        <div className="space-y-4">
+      <div className="grid gap-6">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {agentRoles.map((agent) => (
-            <Card
+            <div
               key={agent.name}
-              className="flex flex-col gap-4 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-purple"
+              tabIndex={0}
+              aria-label={`${agent.name}, ${agent.duty}. ${agent.detail}`}
+              className="group relative h-64 [perspective:1200px] focus:outline-none"
             >
-              <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center border-2 border-purple">
-                  <agent.icon className="size-5 text-purple" />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-bold leading-tight text-fg">
+              <div className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] group-focus:[transform:rotateY(180deg)]">
+                {/* Front */}
+                <Card className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-center [backface-visibility:hidden]">
+                  <span className="flex size-14 shrink-0 items-center justify-center border-2 border-purple">
+                    <agent.icon className="size-7 text-purple" />
+                  </span>
+                  <div>
+                    <p className="text-lg font-bold leading-tight text-fg">
+                      {agent.name}
+                    </p>
+                    <p className="mt-1 text-xs uppercase tracking-[0.2em] text-fg-muted">
+                      {agent.duty}
+                    </p>
+                  </div>
+                  <p className="mt-2 text-[10px] uppercase tracking-[0.25em] text-purple/70">
+                    Hover to brief
+                  </p>
+                </Card>
+
+                {/* Back */}
+                <Card className="absolute inset-0 flex flex-col gap-4 border-purple shadow-brutal-purple [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-purple">
+                    <agent.icon className="size-3.5" />
                     {agent.name}
+                  </div>
+                  <p className="text-sm text-fg-muted">{agent.detail}</p>
+                  <p className="mt-auto border-t-2 border-line pt-3 text-sm italic text-purple/85">
+                    {agent.quote}
                   </p>
-                  <p className="text-xs uppercase tracking-wider text-fg-muted">
-                    {agent.duty}
-                  </p>
-                </div>
+                </Card>
               </div>
-              <p className="text-sm text-fg-muted">{agent.detail}</p>
-              <p className="mt-auto border-t-2 border-line pt-3 text-sm italic text-purple/85">
-                {agent.quote}
-              </p>
-            </Card>
+            </div>
           ))}
         </div>
 
