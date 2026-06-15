@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react"
 import { Section } from "@/components/ui/section"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
@@ -42,7 +43,29 @@ export function About() {
                     {exp.period}
                   </p>
                 </div>
-                <p className="mt-3 text-sm text-fg-muted">{exp.description}</p>
+                {exp.highlight && (
+                  <p className="mt-3 inline-block border-2 border-cyan/40 bg-cyan/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-cyan">
+                    {exp.highlight}
+                  </p>
+                )}
+                {exp.headline && (
+                  <p className="mt-3 text-sm italic text-fg">{exp.headline}</p>
+                )}
+                <details className="group/details mt-3">
+                  <summary className="flex cursor-pointer list-none items-center justify-end gap-2 text-xs uppercase tracking-wider text-purple/80 transition-colors hover:text-purple">
+                    <span className="group-open/details:hidden">Show details</span>
+                    <span className="hidden group-open/details:inline">Hide details</span>
+                    <ChevronDown className="size-3.5 transition-transform group-open/details:rotate-180" />
+                  </summary>
+                  <ul className="mt-3 space-y-2 text-sm text-fg-muted">
+                    {exp.bullets.map((b, i) => (
+                      <li key={i} className="flex gap-2">
+                        <span className="mt-2 size-1.5 shrink-0 bg-purple" />
+                        <span>{renderBold(b)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </Card>
             </li>
           ))}
@@ -84,6 +107,20 @@ function SkillCard({
       </div>
     </Card>
   )
+}
+
+function renderBold(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-semibold text-fg">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    return <span key={i}>{part}</span>
+  })
 }
 
 function toneToBorder(tone: "cyan" | "purple" | "green" | "yellow") {

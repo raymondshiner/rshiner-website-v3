@@ -1,7 +1,7 @@
-import { Terminal } from "lucide-react"
 import { Section } from "@/components/ui/section"
-import { Card } from "@/components/ui/card"
 import { agentRoles } from "@/lib/data"
+
+const agentAccents = ["#00E8C6", "#FFE66D", "#B084EB"] as const
 
 const humanCalls = [
   {
@@ -36,92 +36,103 @@ const humanCalls = [
   },
 ]
 
-const sampleConfig = `# ~/.claude/agents/jeeves.md
----
-name: jeeves
-description: Personal Linux assistant. Owns desktop
-  customization, hotkeys, packages, dotfiles.
-  Reads ~/.config/claude/machine.md for context.
-model: sonnet
-tools: [Read, Edit, Write, Bash, WebSearch]
----
-
-You are Jeeves. The Andromeda theme is law.
-Click opens, Escape closes. Glow matches state.`
-
 export function Workflow() {
   return (
     <Section
       id="workflow"
       eyebrow="How I build"
       title="My agent crew."
-      description="I treat my AI workflow like part of the stack. A crew of custom subagents, each with a job, configured in Markdown and version-controlled in my crew-quarters repo. The skill isn't prompting — it's fluency. Conversation IS development. Including the site you're reading."
+      description="I treat my AI workflow like part of the stack. A crew of custom subagents, each with a job, configured in Markdown and version-controlled in my crew-quarters repo. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
     >
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-        <div className="space-y-4">
-          {agentRoles.map((agent) => (
-            <Card
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {agentRoles.map((agent, i) => {
+          const accent = agentAccents[i % agentAccents.length]
+          return (
+            <div
               key={agent.name}
-              className="flex flex-col gap-4 transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-brutal-purple"
+              className="group/flip h-56 [perspective:1200px]"
             >
-              <div className="flex items-center gap-3">
-                <span className="flex size-10 shrink-0 items-center justify-center border-2 border-purple">
-                  <agent.icon className="size-5 text-purple" />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-bold leading-tight text-fg">
-                    {agent.name}
+              <div className="relative h-full w-full transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover/flip:[transform:rotateY(180deg)] group-focus-within/flip:[transform:rotateY(180deg)]">
+                {/* Front */}
+                <div
+                  tabIndex={0}
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl border-2 p-6 text-center outline-none [backface-visibility:hidden]"
+                  style={{
+                    borderColor: accent,
+                    background: `linear-gradient(160deg, ${accent}26 0%, ${accent}0D 60%, var(--color-bg-elev) 100%)`,
+                    boxShadow: `0 0 0 1px ${accent}33, 0 12px 32px -16px ${accent}80`,
+                  }}
+                >
+                  <span
+                    className="flex size-14 items-center justify-center rounded-xl border-2"
+                    style={{
+                      borderColor: accent,
+                      background: `${accent}1F`,
+                      boxShadow: `0 0 18px ${accent}55`,
+                    }}
+                  >
+                    <agent.icon
+                      className="size-7"
+                      style={{ color: accent }}
+                    />
+                  </span>
+                  <div>
+                    <p
+                      className="text-lg font-bold leading-tight"
+                      style={{ color: accent }}
+                    >
+                      {agent.name}
+                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-fg-muted">
+                      {agent.duty}
+                    </p>
+                  </div>
+                  <p
+                    className="text-sm italic"
+                    style={{ color: `${accent}D9` }}
+                  >
+                    {agent.quote}
                   </p>
-                  <p className="text-xs uppercase tracking-wider text-fg-muted">
-                    {agent.duty}
-                  </p>
+                </div>
+                {/* Back */}
+                <div
+                  className="absolute inset-0 flex flex-col gap-3 rounded-2xl border-2 bg-bg-elev p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+                  style={{
+                    borderColor: accent,
+                    boxShadow: `4px 4px 0 0 ${accent}`,
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="flex size-9 shrink-0 items-center justify-center rounded-lg border-2"
+                      style={{
+                        borderColor: accent,
+                        background: `${accent}1F`,
+                      }}
+                    >
+                      <agent.icon
+                        className="size-4"
+                        style={{ color: accent }}
+                      />
+                    </span>
+                    <div className="min-w-0">
+                      <p
+                        className="font-bold leading-tight"
+                        style={{ color: accent }}
+                      >
+                        {agent.name}
+                      </p>
+                      <p className="text-[10px] uppercase tracking-[0.2em] text-fg-muted">
+                        {agent.duty}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-fg-muted">{agent.detail}</p>
                 </div>
               </div>
-              <p className="text-sm text-fg-muted">{agent.detail}</p>
-              <p className="mt-auto border-t-2 border-line pt-3 text-sm italic text-purple/85">
-                {agent.quote}
-              </p>
-            </Card>
-          ))}
-        </div>
-
-        <Card className="overflow-hidden p-0">
-          <div className="flex items-center justify-between border-b-2 border-line bg-bg px-4 py-2">
-            <div className="flex items-center gap-2 text-xs text-fg-muted">
-              <Terminal className="size-3.5 text-cyan" />
-              jeeves.md
             </div>
-            <div className="flex gap-1.5">
-              <span className="size-2.5 rounded-full bg-red" />
-              <span className="size-2.5 rounded-full bg-yellow" />
-              <span className="size-2.5 rounded-full bg-green" />
-            </div>
-          </div>
-          <pre className="m-0 overflow-x-auto p-4 text-xs leading-relaxed text-fg-muted">
-            <code>
-              {sampleConfig.split("\n").map((line, i) => (
-                <div key={i} className="flex gap-4">
-                  <span className="select-none text-line-strong">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className={lineColor(line)}>{line || " "}</span>
-                </div>
-              ))}
-            </code>
-          </pre>
-          <div className="border-t-2 border-line px-4 py-3 text-xs text-fg-muted">
-            From{" "}
-            <a
-              href="https://github.com/raymondshiner/crew-quarters"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-cyan underline-offset-4 hover:underline"
-            >
-              raymondshiner/crew-quarters
-            </a>{" "}
-            — fully open source.
-          </div>
-        </Card>
+          )
+        })}
       </div>
 
       <div className="mt-16 border-t-2 border-line-strong pt-12 sm:mt-20">
@@ -155,12 +166,4 @@ export function Workflow() {
       </div>
     </Section>
   )
-}
-
-function lineColor(line: string): string {
-  if (line.startsWith("#")) return "text-fg-muted italic"
-  if (line.startsWith("---")) return "text-purple"
-  if (line.includes(":") && !line.startsWith(" "))
-    return "text-cyan"
-  return "text-fg"
 }

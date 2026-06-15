@@ -1,0 +1,63 @@
+## The brief
+
+Most Linux customizing stops at "configure things to look pretty." I wanted the opposite — a desktop where every visible piece was *built*, not just themed, and where the whole system spoke one visual language end to end.
+
+Montressor is that desktop: an Arch + Hyprland workstation with a hand-rolled waybar, custom GTK popups for every interactive control, and the Andromeda palette running edge-to-edge — same cyan accent and JetBrains Mono I use on this site and the Al Bhed translator. The dotfiles live in `crew-quarters`; the environment they assemble is Montressor.
+
+## Why it mattered
+
+I use my desktop and terminal eight hours a day. The cost of *not* shaping that environment compounds — every paper-cut I tolerated was one I'd tolerate forever. Stock waybar modules are fine until you want them to behave a specific way; once you do, they're a wall. So I went under it.
+
+The result is a desktop I can read at a glance and operate by muscle memory, with zero third-party widgets I didn't write or fork myself.
+
+## The approach
+
+Three rules drove every decision:
+
+1. **Hand-build, don't import.** Every interactive control — battery, network, audio, brightness, calendar — is a Python + GTK3 + GtkLayerShell script that follows one pattern. Once you know the pattern, a new popup takes 20 minutes.
+2. **Click opens, Escape closes.** No hover-to-open, no auto-close on focus-out, no surprise dismissals when the cursor drifts. The desktop respects intent.
+3. **One palette, one font, everywhere.** Andromeda cyan for active/connected, green for healthy, yellow for warning, red for critical/off. JetBrains Mono Nerd Font on every surface. Cross-surface coherence isn't decoration — it's how I read the system at a glance.
+
+## Architecture notes
+
+- **Waybar, two patterns.** Group/drawer modules for grouped status (connectivity → network → VPN; hardware → memory → CPU), and bespoke GTK popups for anything interactive. The bar itself is intentionally quiet — essentials always visible, secondary info one click away.
+- **Hyprland as the substrate.** Custom keybinds drive workspace flow, scratchpads, and the popup launchers. Every bind is documented in `hyprland.conf`; nothing lives only in my head.
+- **Color-coded health states.** Glow color on each popup matches the state of what it controls. A red audio popup means muted; cyan means active. The bar tells you the same thing the popup will, so opening it just adds detail.
+- **GPU-aware.** Intel iGPU handles display, RTX 4060 dGPU runs intensive apps via `prime-run`. Never switch to dGPU-only mode — it breaks display output. The kind of footgun you learn exactly once.
+- **Dotfiles synced hands-off.** A `dots` zsh function detects which repo `$PWD` is in (public dotfiles vs. private prompts) and commits + pushes that one. Neither repo sits dirty for long.
+
+## The GTK popup pattern
+
+Every popup follows the same skeleton: PID file for click-toggle, GtkLayerShell anchored to the right edge of the bar, RGBA visual so the rounded corners read clean, debounced slider writes via `GLib.timeout_add` to avoid flooding `pactl` or `sysfs`. The Andromeda glow color is templated into the CSS per-popup, so audio gets cyan, network-down gets red, and battery-charging gets cyan with a different icon.
+
+The trap I hit early: `focus-out-event` seems like the obvious "close when the user clicks away" signal. It also fires when the cursor moves from the bar *toward* the popup, causing immediate dismissal. Solution: don't use it. Escape closes, clicking the bar icon toggles, and that's the contract.
+
+Other lessons that cost me an hour each:
+
+- `margin: 8px` is the glow's breathing room *outside* the rounded card; `padding: 16px` is the content space *inside*. Mix them up and the shadow gets clipped.
+- CSS braces need to be doubled (`{{}}`) inside Python `.format()` strings or you'll spend twenty minutes wondering why the template silently ate them.
+- Slider labels need `connect('format-value', ...)` — `set_format_value_func` is GTK4 only and silently no-ops on GTK3.
+
+## Andromeda, the through-line
+
+| Role | Hex |
+|---|---|
+| Background | `#1C1E26` / `#23262E` |
+| Bright text | `#D5CED9` |
+| Muted / inactive | `#677691` |
+| Cyan (active, charging, connected) | `#00E8C6` |
+| Green (healthy) | `#A8FF60` |
+| Yellow (warning) | `#FFE66D` |
+| Red (critical / off) | `#EE5D43` |
+| Purple accent | `#B084EB` |
+
+These tokens drive the waybar CSS, the GTK popups, this portfolio, and the Al Bhed translator. New surfaces inherit the language automatically — there's no separate "web theme" or "desktop theme," just Andromeda.
+
+## What I'd do differently
+
+- **Document the popup pattern in the repo, not just in my head.** I built the second and third popups by copying the first, which works until the first one drifts. I now keep a canonical reference popup that other ones are linted against.
+- **Bake the hyprland keybind map into a generated cheatsheet.** I have it in my head; nobody else does. A small script that reads `hyprland.conf` and emits a printable PDF would help when I switch machines.
+
+## See also
+
+- [`raymondshiner/crew-quarters`](https://github.com/raymondshiner/crew-quarters) — the public dotfiles that assemble Montressor

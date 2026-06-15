@@ -1,0 +1,49 @@
+## The brief
+
+Final Fantasy X buries half its world in Al Bhed — a substitution cipher you decode one primer at a time. The web has translators, but they're old-internet: ad-stuffed, light-mode-only, broken on mobile, and none of them respect the *primer mechanic* that makes the language feel earned.
+
+I wanted a translator that was fast, mobile-first, themed in the Andromeda palette I use everywhere else, and that could double as the proving ground for the stack I'd commit to for everything else this year.
+
+## Why it mattered (beyond the toy)
+
+This was the first project I built end-to-end with the Claude Code agent crew — Jarvis, Friday, Smith. Picking a small, well-scoped problem let me debug the *workflow* without the *product* fighting me.
+
+By the time it shipped, I had:
+
+- a validated stack default (Vite + React 19 + Tailwind v4 + shadcn/Radix Nova) that I now reach for on every new web project
+- a `verify-ui` Playwright pattern that drives desktop + mobile viewports and asserts behavior, not pixels
+- a documented set of shadcn-on-Tailwind-v4 gotchas — saving the next project a half-day of cascade debugging
+
+The translator is the artifact. The workflow is the deliverable.
+
+## The approach
+
+- **Bidirectional translation, instant.** Type either side, the other updates as you go. No "translate" button.
+- **Mobile-first tabs.** The shadcn `Tabs` primitive hard-codes a short height; I stripped its `group-data-horizontal/tabs:h-8` so the bar can be tall-with-icons on phones and compact on desktop.
+- **Andromeda everywhere.** Same cyan accent, same JetBrains Mono, same muted slate as the desktop and this site. Cross-surface coherence is a feature.
+- **SEO that ships.** OG image, sitemap.xml, robots.txt, and a JSON-LD `WebApplication` schema — verified in `dist/` before every deploy, not assumed.
+
+## Architecture notes
+
+- **Build:** Vite + TS strict, deployed to Vercel with an SPA rewrite and immutable asset caching in `vercel.json`
+- **UI:** React 19 + shadcn/ui (Radix Nova preset), Tailwind v4 with `@theme inline` tokens promoted from Andromeda
+- **Cipher:** pure functions, no framework — the translator is a 30-line module with a fixture file for round-trip tests
+- **Verification:** `tests/verify-ui.mjs` boots Playwright against the production URL, runs through desktop + iPhone 13 viewports, asserts the semantic roles (input is `type="search"`, tabs are reachable by keyboard), and dumps screenshots to `/tmp/al-bhed-shots/`
+
+## Gotchas worth remembering
+
+- `:root` must precede `.dark` in `src/index.css`. shadcn's init script occasionally swaps them and the light theme silently wins on `<html class="dark">`.
+- Drop `baseUrl` from `tsconfig.app.json` (deprecated in TS 6.0). Keep `paths` alone.
+- shadcn's `tabsListVariants` ships with `h-8` hard-coded. Strip it and set responsive heights on the `TabsList` instance directly.
+
+## What I'd do differently
+
+Two things on the backlog:
+
+1. **Native Android port** via Capacitor or Expo — share-sheet integration so you can pipe an Al Bhed string in from anywhere and read it inline. Offline-first.
+2. **Primer mechanic** — toggle the FFX progression on, and only the letters you've "found" decode. Closer to the in-game experience than a flat lookup.
+
+## See also
+
+- [`raymondshiner/al-bhed-translator`](https://github.com/raymondshiner/al-bhed-translator) — source
+- [albhed.raymondshiner.com](https://albhed.raymondshiner.com) — live

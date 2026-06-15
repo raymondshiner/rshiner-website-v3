@@ -24,13 +24,26 @@ export const projects: ProjectMeta[] = [
     highlight: true,
   },
   {
-    slug: "crew-quarters-andromeda",
-    title: "crew-quarters + the agent crew",
+    slug: "al-bhed-translator",
+    title: "Al Bhed Translator",
+    tagline: "Instant FFX Al Bhed ↔ English, mobile-first, Andromeda-themed.",
+    description:
+      "Bidirectional substitution-cipher translator for Final Fantasy X's Al Bhed language. Built end-to-end with the agent crew as the proving ground for my validated Vite + React 19 + Tailwind v4 + shadcn stack.",
+    stack: ["React 19", "Vite", "TypeScript", "Tailwind v4", "shadcn/ui", "Playwright"],
+    github: "https://github.com/raymondshiner/al-bhed-translator",
+    live: "https://albhed.raymondshiner.com",
+    caseStudy: "al-bhed-translator",
+    highlight: true,
+  },
+  {
+    slug: "montressor",
+    title: "Montressor",
     tagline: "Hand-built Hyprland desktop with a Claude Code agent crew.",
     description:
-      "Cross-platform dotfiles repo (Arch/Hyprland + macOS) with custom waybar modules, GTK popup menus, and a Claude Code crew of three custom subagents — Jeeves (system), Watson (code), Friday (research) — wired into the workflow.",
+      "My hyper-personalized Arch/Hyprland desktop environment. Hand-built waybar modules, Python + GTK popup menus for every interactive control, and the Andromeda palette running edge-to-edge. Assembled from the crew-quarters dotfiles.",
     stack: ["Hyprland", "Python (GTK)", "Zsh", "Claude Code", "Subagents"],
     github: "https://github.com/raymondshiner/crew-quarters",
+    caseStudy: "montressor",
     highlight: true,
   },
   {
