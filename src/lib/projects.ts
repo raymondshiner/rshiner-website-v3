@@ -40,9 +40,9 @@ export const projects: ProjectMeta[] = [
     title: "Montressor",
     tagline: "Hand-built Hyprland desktop with a Claude Code agent crew.",
     description:
-      "My hyper-personalized Arch/Hyprland desktop environment. Hand-built waybar modules, Python + GTK popup menus for every interactive control, and the Andromeda palette running edge-to-edge. Assembled from the crew-quarters dotfiles.",
+      "My hyper-personalized Arch/Hyprland desktop environment. Hand-built waybar modules, Python + GTK popup menus for every interactive control, and the Andromeda palette running edge-to-edge. Desktop dotfiles are public; the Claude Code agent crew that runs on top lives in a separate private repo — the secret sauce stays sealed.",
     stack: ["Hyprland", "Python (GTK)", "Zsh", "Claude Code", "Subagents"],
-    github: "https://github.com/raymondshiner/crew-quarters",
+    github: "https://github.com/raymondshiner/montressor",
     caseStudy: "montressor",
     highlight: true,
   },

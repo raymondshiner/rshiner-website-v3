@@ -1,5 +1,5 @@
-import { useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { useEffect, type MouseEvent } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { ArrowLeft, ArrowUpRight } from "lucide-react"
 import { GithubIcon } from "@/components/ui/brand-icons"
 import { Badge } from "@/components/ui/badge"
@@ -8,8 +8,16 @@ import { caseStudyComponents } from "@/content/case-studies/index"
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
   const meta = projects.find((p) => p.caseStudy === slug)
   const Component = slug ? caseStudyComponents[slug] : undefined
+
+  const handleBack = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (window.history.length > 1) {
+      e.preventDefault()
+      navigate(-1)
+    }
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0 })
@@ -19,7 +27,7 @@ export default function CaseStudyPage() {
     return (
       <main className="mx-auto max-w-3xl px-4 pt-32 sm:px-8">
         <p className="text-fg-muted">Case study not found.</p>
-        <Link to="/#work" className="text-cyan underline">
+        <Link to="/#work" onClick={handleBack} className="text-cyan underline">
           Back to work
         </Link>
       </main>
@@ -31,6 +39,7 @@ export default function CaseStudyPage() {
       <article className="mx-auto max-w-3xl">
         <Link
           to="/#work"
+          onClick={handleBack}
           className="mb-8 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-fg-muted hover:text-cyan"
         >
           <ArrowLeft className="size-3" /> Back to work

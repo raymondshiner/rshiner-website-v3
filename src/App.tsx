@@ -7,8 +7,6 @@ import { AskRaymond } from "@/components/chat/ask-raymond"
 const HomePage = lazy(() => import("@/pages/home"))
 const NowPage = lazy(() => import("@/pages/now"))
 const CaseStudyPage = lazy(() => import("@/pages/case-study"))
-const WritingPage = lazy(() => import("@/pages/writing"))
-const WritingPostPage = lazy(() => import("@/pages/writing-post"))
 
 export default function App() {
   return (
@@ -20,8 +18,6 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/now" element={<NowPage />} />
             <Route path="/case-study/:slug" element={<CaseStudyPage />} />
-            <Route path="/writing" element={<WritingPage />} />
-            <Route path="/writing/:slug" element={<WritingPostPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

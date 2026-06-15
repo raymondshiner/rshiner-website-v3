@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Section } from "@/components/ui/section"
 import { Badge } from "@/components/ui/badge"
@@ -22,56 +23,102 @@ export function About() {
         <h3 className="mb-6 text-xs uppercase tracking-[0.3em] text-cyan">
           — Selected experience
         </h3>
-        <ol className="relative space-y-6 border-l-2 border-line pl-6">
+        <ol className="relative space-y-10 border-l-2 border-line pl-6">
           {experience.map((exp) => (
-            <li key={`${exp.title}-${exp.company}`} className="relative">
-              <span
-                className={
-                  "absolute -left-[27px] top-2 size-3 border-2 " +
-                  (exp.current
-                    ? "border-cyan bg-cyan"
-                    : "border-line-strong bg-bg")
-                }
-              />
-              <Card className="p-5">
-                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                  <div>
-                    <p className="font-bold text-fg">{exp.title}</p>
-                    <p className="text-cyan">{exp.company}</p>
-                  </div>
-                  <p className="text-xs uppercase tracking-wider text-fg-muted">
-                    {exp.period}
-                  </p>
-                </div>
-                {exp.highlight && (
-                  <p className="mt-3 inline-block border-2 border-cyan/40 bg-cyan/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-cyan">
-                    {exp.highlight}
-                  </p>
-                )}
-                {exp.headline && (
-                  <p className="mt-3 text-sm italic text-fg">{exp.headline}</p>
-                )}
-                <details className="group/details mt-3">
-                  <summary className="flex cursor-pointer list-none items-center justify-end gap-2 text-xs uppercase tracking-wider text-purple/80 transition-colors hover:text-purple">
-                    <span className="group-open/details:hidden">Show details</span>
-                    <span className="hidden group-open/details:inline">Hide details</span>
-                    <ChevronDown className="size-3.5 transition-transform group-open/details:rotate-180" />
-                  </summary>
-                  <ul className="mt-3 space-y-2 text-sm text-fg-muted">
-                    {exp.bullets.map((b, i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="mt-2 size-1.5 shrink-0 bg-purple" />
-                        <span>{renderBold(b)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              </Card>
-            </li>
+            <ExperienceItem key={`${exp.title}-${exp.company}`} exp={exp} />
           ))}
         </ol>
       </div>
     </Section>
+  )
+}
+
+function ExperienceItem({ exp }: { exp: (typeof experience)[number] }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <li className="relative">
+      <span
+        className={
+          "absolute -left-[27px] top-2 size-3 border-2 " +
+          (exp.current ? "border-cyan bg-cyan" : "border-line-strong bg-bg")
+        }
+      />
+      <Card
+        className={
+          "p-5 transition-all duration-300 " +
+          (open
+            ? "border-purple/50 shadow-[0_0_0_1px_rgb(176_132_235_/_0.25),0_8px_24px_-8px_rgb(176_132_235_/_0.35)]"
+            : "")
+        }
+      >
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+          <div>
+            <p className="font-bold text-fg">{exp.title}</p>
+            <p className="text-cyan">{exp.company}</p>
+          </div>
+          <p className="text-xs uppercase tracking-wider text-fg-muted">
+            {exp.period}
+          </p>
+        </div>
+        {exp.highlight && (
+          <p className="mt-3 inline-block border-2 border-cyan/40 bg-cyan/10 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-cyan">
+            {exp.highlight}
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="group/toggle mt-3 flex w-full cursor-pointer items-baseline gap-3 text-left text-sm italic text-fg"
+        >
+          {exp.headline && <span className="flex-1">{exp.headline}</span>}
+          <span
+            className={
+              "inline-flex shrink-0 items-center gap-1 text-xs uppercase not-italic tracking-wider transition-colors " +
+              (open ? "text-purple" : "text-purple/80 group-hover/toggle:text-purple")
+            }
+          >
+            <span>{open ? "less" : "more"}</span>
+            <ChevronDown
+              className={
+                "size-3.5 transition-transform duration-300 " +
+                (open ? "rotate-180" : "")
+              }
+            />
+          </span>
+        </button>
+        <div
+          className={
+            "grid transition-[grid-template-rows,opacity,margin] duration-300 ease-out " +
+            (open
+              ? "mt-4 grid-rows-[1fr] opacity-100"
+              : "mt-0 grid-rows-[0fr] opacity-0")
+          }
+        >
+          <div className="overflow-hidden">
+            <div className="border-l-2 border-purple/40 bg-purple/[0.04] py-4 pl-5 pr-4">
+              <ul className="space-y-3 text-sm text-fg-muted">
+                {exp.bullets.map((b, i) => (
+                  <li
+                    key={i}
+                    className={
+                      "flex gap-3 transition-all duration-500 " +
+                      (open
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-1 opacity-0")
+                    }
+                    style={{ transitionDelay: open ? `${80 + i * 60}ms` : "0ms" }}
+                  >
+                    <span className="mt-2 size-1.5 shrink-0 bg-purple" />
+                    <span className="leading-relaxed">{renderBold(b)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </li>
   )
 }
 

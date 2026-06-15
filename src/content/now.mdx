@@ -1,45 +1,55 @@
-## Looking for work
+import { BuildingNow } from "../components/now/building-now"
 
-I left Divisions Maintenance Group in **May 2026** after three years. As of right now I'm fully open — full-time, contract, or freelance. Remote-first, Pacific time zone.
+The list below updates itself — pulled live from GitHub on every load. Fresher than I can write.
 
-**The shortlist of what I'm a good fit for:**
-- Senior or staff frontend roles on a React/TypeScript stack
-- Tech-lead / team-lead positions where engineering judgment matters more than headcount
-- Greenfield builds where someone needs to make the early architectural calls
-- Smaller teams where I can wear both an engineering and a leadership hat
+<BuildingNow />
 
-**Less interested in:** ad-tech, crypto, anything with a managed-Java backend.
+## What I do not delegate to AI
 
-Fastest path to me: [raymondshiner@gmail.com](mailto:raymondshiner@gmail.com).
+Calling this out early because the rest of this site leans hard the other way. The line isn't moving:
 
-## Building right now
+- **Architecture decisions on systems that outlive me.** AI accelerates execution, not judgment of trade-offs.
+- **Hiring, performance, mentoring, conflict.** People calls. Always.
+- **Security and auth code.** Read line by line, every time.
+- **Naming things that live in public.** Variables, products, repos. Taste lives here.
+- **The choice of what *not* to build.** Scope creep, premature abstraction, over-engineering — the hardest engineering judgment is restraint, and that's still mine.
+- **Problem framing before I touch the keyboard.** If I can't write the spec in one paragraph, I'm not ready to start.
 
-- **[rshiner-website-v3](https://github.com/raymondshiner/rshiner-website-v3)** — this site. React 19 + Tailwind v4 + Andromeda theme + an MDX content layer. Built in a session alongside my Claude Code agent crew.
-- **[crew-quarters](https://github.com/raymondshiner/crew-quarters)** — my dotfiles repo and the home of "the crew": a hand-tuned Hyprland desktop in the Andromeda palette, plus three Claude Code subagents. Jarvis runs my Linux machine, Friday does external research, Smith handles code work — and deploys in parallel when a job needs more hands. All version-controlled.
-- **[al-bhed-translator](https://albhed.raymondshiner.com)** — shipped early June. A small Final Fantasy X cipher tool, but it was the proving ground for the Andromeda theme, the verify-ui Playwright pattern, and the Smith MCP workflow I now use everywhere else.
+AI is execution speed. It isn't the work.
 
-## Stack I'm reaching for in 2026
+## What's changed in my stack lately
 
-- **Frontend:** React 19, TypeScript, Tailwind v4, Vite, shadcn/ui
-- **Testing:** RTL, Vitest, TDD when stakes are high
-- **Architecture:** Module federation, Apollo GraphQL, MSAL when MS Graph is involved
-- **Backend (when needed):** C# / .NET, Node
-- **OS / shell:** Arch (CachyOS), Hyprland, zsh + Spaceship, Kitty
-- **AI:** Claude Code + custom subagents. ChatGPT for in-between work. Anthropic SDK for things I ship. I don't really live in an IDE anymore — the terminal is the workshop.
+Snapshot of *change*, not inventory. The full skill list lives on [home](/#about).
+
+**Added**
+- Tailwind v4 + `@theme` tokens — first design-token solution I've actually shipped with
+- Claude Code subagents (Smith, Jarvis, Friday) as a team, not single shots
+- Hyprland on Arch (CachyOS) — terminal-first desktop, hand-built bar and popups
+- Anthropic SDK in production builds, not just toy prompts
+
+**Dropped**
+- Cursor and Copilot — the IDE isn't the workshop anymore
+- Heavyweight component libraries — shadcn + Radix gets me 90% there with less to fight
+- Manual scaffolding for new projects — `smith-init` + a launch script does it in one command
+
+**Watching**
+- React 19's compiler in real production code, not toy benchmarks
+- MCPs maturing past the demo stage — what's the right unit of composition?
+- Whether the "AI-native engineer" label means anything six months from now
 
 ## Things I'm sitting with
 
-A short list — these change month to month.
+Broader questions — these change month to month.
 
-- How far Claude Code subagents scale before the seams show
-- React 19's compiler in real production code, not toy benchmarks
-- Whether Tailwind v4's `@theme` is the design-token solution I've been waiting for
-- What "AI-native engineer" actually means six months from now
+- How far Claude Code subagents scale before coordination becomes the bottleneck
+- What "senior engineer" means when the implementation work is increasingly cheap
+- Where the line is between repairable code and code that's just disposable
+- How to interview for engineers in a world where the typing test isn't the signal anymore
 
 ## Coming next
 
 A companion site that's deliberately AI-free — no writing assist, no agent help, no generated assets. I want a venue where my voice and opinions are unmistakably mine. The poetry, the book ideas, the things where the *authoring* is the point. Call it the second half of the experiment this site started.
 
-## What I do not delegate to AI
+---
 
-Calling this out because the rest of this site leans hard the other way: architecture decisions on systems that will outlive me. Hiring and people calls. Security and auth code, line by line. Naming things that live in public. The choice of what *not* to build. The framing of a problem before I touch the keyboard. AI is execution speed — it isn't judgment.
+Want a fresher version of any of this? [raymondshiner@gmail.com](mailto:raymondshiner@gmail.com) — the live version is always the conversation.

@@ -67,6 +67,7 @@ export const skillCategories: SkillCategory[] = [
     summary: "Stronger teams ship stronger systems.",
     items: [
       "Team lead (4+ devs)",
+      "Team communication",
       "Mentoring",
       "Clean-code enforcement",
       "Agile process design",

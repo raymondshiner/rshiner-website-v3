@@ -17,7 +17,7 @@ const fallbackResponses: Record<string, string> = {
   stack:
     "React 19, TypeScript, Tailwind v4, Vite, shadcn/ui. C# on the backend when needed. Apollo GraphQL, MS Graph + MSAL in production.",
   agent:
-    "He runs a Claude Code crew of three custom subagents: Jarvis (desktop & machine — Arch/Hyprland, dotfiles, hotkeys), Friday (research assistant — external web research and product picks), Smith (code agent — features, refactors, deploys; spawns in parallel for bigger jobs). The whole crew lives in his crew-quarters repo, version-controlled alongside the rest of his dotfiles.",
+    "He runs a Claude Code crew of three custom subagents: Jarvis (desktop & machine — Arch/Hyprland, dotfiles, hotkeys), Friday (research assistant — external web research and product picks), Smith (code agent — features, refactors, deploys; spawns in parallel for bigger jobs). The Arch + Hyprland desktop they run on is public at github.com/raymondshiner/montressor; the agent prompts and configs themselves stay in a separate private repo — that's the workshop, sealed.",
   freelance:
     "Yes — fully open right now. No current full-time gig as of May 2026, taking full-time, contract, and freelance leads. raymondshiner@gmail.com is the fastest path.",
 }

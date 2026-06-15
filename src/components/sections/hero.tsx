@@ -55,56 +55,57 @@ export function Hero() {
           ))}
         </h1>
 
-        <motion.p
-          initial={prefersReduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-8 max-w-3xl text-base text-fg-muted sm:text-lg"
-        >
-          I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
-          engineer with five years of frontend craft and two of leading teams.
-          The way I make things has changed; what I make hasn't. The job is
-          solving unique problems in the digital space — and the medium just
-          got faster, broader, and a lot more interesting.
-        </motion.p>
+        <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start lg:gap-12">
+          <div className="grid grid-rows-[auto_auto] gap-8">
+            <motion.p
+              initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="max-w-3xl text-base text-fg-muted sm:text-lg"
+            >
+              I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
+              engineer with five years of frontend craft and two of leading
+              teams. The way I make things has changed; what I make hasn't.
+              The job is solving unique problems in the digital space — and
+              the medium just got faster, broader, and a lot more interesting.
+            </motion.p>
 
-        <motion.div
-          initial={prefersReduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-10 flex flex-wrap gap-4"
-        >
-          <Button asChild size="lg">
-            <Link to="/#work">
-              See the work <ArrowRight className="size-4" />
-            </Link>
-          </Button>
-          <Button asChild size="lg" variant="outline">
-            <Link to="/#contact">Get in touch</Link>
-          </Button>
-        </motion.div>
+            <motion.div
+              initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="flex flex-wrap gap-4 self-start"
+            >
+              <Button asChild size="lg">
+                <Link to="/#work">
+                  See the work <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/#contact">Get in touch</Link>
+              </Button>
+            </motion.div>
+          </div>
 
-        <motion.aside
-          initial={prefersReduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 border-2 border-line bg-bg-elev/70 p-5 backdrop-blur-sm"
-        >
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-fg-muted">
-            // currently
-          </p>
-          <ul className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-3">
-            <StatusRow label="status" value="Open for new work" />
-            <StatusRow
-              label="building"
-              value="crew-quarters + Andromeda desktop"
-            />
-            <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
-            <StatusRow label="ai" value="Claude Code · ChatGPT · own SDK" />
-            <StatusRow label="surface" value="Terminal-first, post-IDE" />
-            <StatusRow label="based" value="Spokane Valley, WA" />
-          </ul>
-        </motion.aside>
+          <motion.aside
+            initial={prefersReduced ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="h-full border-2 border-line bg-bg-elev/70 p-5 backdrop-blur-sm"
+          >
+            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-fg-muted">
+              // currently
+            </p>
+            <ul className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-1">
+              <StatusRow label="status" value="Open for senior + lead roles" />
+              <StatusRow label="role" value="Frontend lead, 7 yrs shipping" />
+              <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
+              <StatusRow label="tooling" value="Claude Code · Hyprland · Neovim" />
+              <StatusRow label="shipping" value="Agent-driven dev workflows" />
+              <StatusRow label="based" value="Spokane Valley, WA · remote" />
+            </ul>
+          </motion.aside>
+        </div>
       </div>
     </section>
   )
