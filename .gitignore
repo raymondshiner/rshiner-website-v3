@@ -23,3 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Smith agent workspace
+.smith.json
+.session-state.md
