@@ -41,8 +41,8 @@ export function Workflow() {
     <Section
       id="workflow"
       eyebrow="How I build"
-      title="My agent crew."
-      description="I treat my AI workflow like part of the stack. A crew of custom subagents, each with a job, configured in Markdown and version-controlled in my crew-quarters repo. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
+      title="My team."
+      description="I treat my AI workflow like part of the stack. A small team of custom subagents, each with a job, configured in Markdown and version-controlled alongside the rest of my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {agentRoles.map((agent, i) => {
