@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -65,10 +66,6 @@ export function Nav() {
     }
     return location.pathname === to || location.pathname.startsWith(to + "/")
   }
-
-  useEffect(() => {
-    setOpen(false)
-  }, [location.pathname, location.hash])
 
   const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (location.pathname === "/") {
@@ -154,7 +151,10 @@ export function Nav() {
       </div>
 
       {open && (
-        <nav className="border-t-2 border-line bg-bg md:hidden">
+        <nav
+          className="border-t-2 border-line bg-bg md:hidden"
+          onClick={() => setOpen(false)}
+        >
           <ul className="mx-auto flex max-w-7xl flex-col px-4 py-2">
             {items.map((item, idx) =>
               isDivider(item) ? (
