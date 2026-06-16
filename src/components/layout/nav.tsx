@@ -129,14 +129,14 @@ export function Nav() {
             to="/now"
             className={({ isActive }) =>
               cn(
-                "ml-3 inline-flex items-center gap-2 border-2 border-purple px-3 py-1.5 text-sm uppercase tracking-wider text-purple transition-all hover:-translate-y-0.5 shadow-brutal-purple",
+                "group/now ml-3 inline-flex items-center gap-2 border-2 border-purple px-3 py-1.5 text-sm uppercase tracking-wider text-purple transition-all hover:-translate-y-0.5 shadow-brutal-purple",
                 isActive && "bg-purple text-bg",
               )
             }
           >
             <span
               aria-hidden
-              className="size-1.5 rounded-full bg-purple animate-pulse"
+              className="size-1.5 rounded-full bg-purple animate-pulse group-aria-[current=page]/now:bg-bg"
             />
             Now
           </NavLink>
@@ -183,14 +183,14 @@ export function Nav() {
                 to="/now"
                 className={({ isActive }) =>
                   cn(
-                    "inline-flex items-center gap-2 border-2 border-purple px-3 py-2 text-base uppercase tracking-wider text-purple shadow-brutal-purple",
+                    "group/now inline-flex items-center gap-2 border-2 border-purple px-3 py-2 text-base uppercase tracking-wider text-purple shadow-brutal-purple",
                     isActive && "bg-purple text-bg",
                   )
                 }
               >
                 <span
                   aria-hidden
-                  className="size-1.5 rounded-full bg-purple animate-pulse"
+                  className="size-1.5 rounded-full bg-purple animate-pulse group-aria-[current=page]/now:bg-bg"
                 />
                 Now
               </NavLink>
