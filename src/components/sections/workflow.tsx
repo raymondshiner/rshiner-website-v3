@@ -42,7 +42,7 @@ export function Workflow() {
       id="workflow"
       eyebrow="How I build"
       title="My team."
-      description="I treat my AI workflow like part of the stack. A small team of custom subagents, each with a job, configured in Markdown and version-controlled alongside the rest of my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
+      description="I treat my AI workflow like part of the stack. Cursor and Copilot are out; the terminal is the workshop now. A small team of custom subagents, each with a job, configured in Markdown and version-controlled alongside the rest of my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {agentRoles.map((agent, i) => {
