@@ -2,6 +2,7 @@
 // Wired up once Raymond drops ANTHROPIC_API_KEY into the project env vars.
 // Until then, deploy returns a 503 and the client falls back to a local handler.
 
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 import Anthropic from "@anthropic-ai/sdk"
 
 const SYSTEM_PROMPT = `You are an AI concierge embedded in Raymond Shiner's personal portfolio site. You speak ABOUT him to visitors — answering questions about his work, experience, and how he thinks.
@@ -75,49 +76,52 @@ function rateLimited(ip: string): boolean {
   return b.count > RATE_LIMIT
 }
 
-export default async function handler(req: Request) {
+function headerStr(v: string | string[] | undefined): string | undefined {
+  if (!v) return undefined
+  return Array.isArray(v) ? v[0] : v
+}
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
-    return json({ error: "method not allowed" }, 405)
+    return res.status(405).json({ error: "method not allowed" })
   }
 
-  const origin = req.headers.get("origin")
+  const origin = headerStr(req.headers.origin)
   if (origin) {
     try {
       const host = new URL(origin).host
       const ok =
         ALLOWED_HOSTS.includes(host) || host.endsWith(".vercel.app")
-      if (!ok) return json({ error: "forbidden" }, 403)
+      if (!ok) return res.status(403).json({ error: "forbidden" })
     } catch {
-      return json({ error: "forbidden" }, 403)
+      return res.status(403).json({ error: "forbidden" })
     }
   }
 
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
+    headerStr(req.headers["x-forwarded-for"])?.split(",")[0]?.trim() ||
+    headerStr(req.headers["x-real-ip"]) ||
     "unknown"
   if (rateLimited(ip)) {
-    return json({ error: "rate limit exceeded" }, 429)
+    return res.status(429).json({ error: "rate limit exceeded" })
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
-    return json(
-      { error: "Backend not configured. Set ANTHROPIC_API_KEY." },
-      503,
-    )
+    return res
+      .status(503)
+      .json({ error: "Backend not configured. Set ANTHROPIC_API_KEY." })
   }
 
-  let body: AskBody
-  try {
-    body = (await req.json()) as AskBody
-  } catch {
-    return json({ error: "bad json" }, 400)
-  }
+  const body = (typeof req.body === "string"
+    ? safeParse(req.body)
+    : req.body) as AskBody | null
+  if (!body) return res.status(400).json({ error: "bad json" })
 
   const message = body.message?.trim()
-  if (!message) return json({ error: "message required" }, 400)
-  if (message.length > 500) return json({ error: "message too long" }, 400)
+  if (!message) return res.status(400).json({ error: "message required" })
+  if (message.length > 500)
+    return res.status(400).json({ error: "message too long" })
 
   const client = new Anthropic({ apiKey })
 
@@ -141,18 +145,18 @@ export default async function handler(req: Request) {
       .join("\n")
       .trim()
 
-    return json({ reply: reply || "(no reply)" })
+    return res.status(200).json({ reply: reply || "(no reply)" })
   } catch (err) {
-    return json(
-      { error: err instanceof Error ? err.message : "upstream error" },
-      502,
-    )
+    return res
+      .status(502)
+      .json({ error: err instanceof Error ? err.message : "upstream error" })
   }
 }
 
-function json(payload: unknown, status = 200) {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: { "content-type": "application/json" },
-  })
+function safeParse(s: string): AskBody | null {
+  try {
+    return JSON.parse(s) as AskBody
+  } catch {
+    return null
+  }
 }
