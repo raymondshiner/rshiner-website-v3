@@ -4,7 +4,7 @@
 // Cached at the edge for 1h; uses GITHUB_TOKEN when present to dodge the
 // 60/hr unauthenticated rate limit.
 
-export const config = { runtime: "nodejs" }
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 
 const REPO_PATTERN = /^[\w.-]+\/[\w.-]+$/
 const MAX_REPOS = 12
@@ -17,20 +17,31 @@ interface RepoActivity {
   error?: string
 }
 
-export default async function handler(req: Request) {
-  if (req.method !== "GET") return json({ error: "method not allowed" }, 405)
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "method not allowed" })
+  }
 
-  const url = new URL(req.url)
-  const raw = url.searchParams.get("repos") ?? ""
+  const raw =
+    typeof req.query.repos === "string"
+      ? req.query.repos
+      : Array.isArray(req.query.repos)
+        ? req.query.repos.join(",")
+        : ""
+
   const slugs = raw
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean)
 
-  if (slugs.length === 0) return json({ error: "repos param required" }, 400)
-  if (slugs.length > MAX_REPOS) return json({ error: "too many repos" }, 400)
+  if (slugs.length === 0) {
+    return res.status(400).json({ error: "repos param required" })
+  }
+  if (slugs.length > MAX_REPOS) {
+    return res.status(400).json({ error: "too many repos" })
+  }
   if (slugs.some((s) => !REPO_PATTERN.test(s))) {
-    return json({ error: "invalid repo slug" }, 400)
+    return res.status(400).json({ error: "invalid repo slug" })
   }
 
   const token = process.env.GITHUB_TOKEN
@@ -40,14 +51,12 @@ export default async function handler(req: Request) {
     slugs.map((slug) => fetchActivity(slug, sinceIso, token)),
   )
 
-  return new Response(JSON.stringify({ repos }), {
-    status: 200,
-    headers: {
-      "content-type": "application/json",
-      // 1h fresh + 1h stale-while-revalidate
-      "cache-control": "public, s-maxage=3600, stale-while-revalidate=3600",
-    },
-  })
+  // 1h fresh + 1h stale-while-revalidate at the edge
+  res.setHeader(
+    "cache-control",
+    "public, s-maxage=3600, stale-while-revalidate=3600",
+  )
+  return res.status(200).json({ repos })
 }
 
 async function fetchActivity(
@@ -72,12 +81,14 @@ async function fetchActivity(
     ])
 
     if (!meta.ok) {
+      const rateLimited =
+        meta.status === 403 && meta.headers.get("x-ratelimit-remaining") === "0"
       return {
         slug,
         htmlUrl: null,
         pushedAt: null,
         commitsLastWeek: null,
-        error: `repo ${meta.status}`,
+        error: rateLimited ? "rate limited" : `repo ${meta.status}`,
       }
     }
 
@@ -107,11 +118,4 @@ async function fetchActivity(
       error: err instanceof Error ? err.message : "fetch failed",
     }
   }
-}
-
-function json(payload: unknown, status = 200) {
-  return new Response(JSON.stringify(payload), {
-    status,
-    headers: { "content-type": "application/json" },
-  })
 }
