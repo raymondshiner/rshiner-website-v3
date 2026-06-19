@@ -2,11 +2,13 @@ import { lazy, Suspense } from "react"
 import { Link, Route, Routes } from "react-router-dom"
 import { Nav } from "@/components/layout/nav"
 import { Footer } from "@/components/layout/footer"
-import { AskRaymond } from "@/components/chat/ask-raymond"
 
 const HomePage = lazy(() => import("@/pages/home"))
 const NowPage = lazy(() => import("@/pages/now"))
 const CaseStudyPage = lazy(() => import("@/pages/case-study"))
+const AskRaymond = lazy(() =>
+  import("@/components/chat/ask-raymond").then((m) => ({ default: m.AskRaymond })),
+)
 
 export default function App() {
   return (
@@ -23,7 +25,9 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-      <AskRaymond />
+      <Suspense fallback={null}>
+        <AskRaymond />
+      </Suspense>
     </div>
   )
 }
