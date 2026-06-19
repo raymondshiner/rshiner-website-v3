@@ -211,7 +211,23 @@ export function AskRaymond() {
 
 function MarkdownBody({ children }: { children: string }) {
   return (
-    <div className="space-y-2 leading-relaxed [&_a]:text-cyan [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-cyan/80 [&_code]:rounded-sm [&_code]:border [&_code]:border-line [&_code]:bg-bg-elev [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_code]:text-cyan [&_em]:italic [&_li]:ml-4 [&_ol]:list-decimal [&_ol]:space-y-1 [&_p]:m-0 [&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:border [&_pre]:border-line [&_pre]:bg-bg-elev [&_pre]:p-2 [&_pre_code]:border-0 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-fg [&_strong]:font-semibold [&_strong]:text-fg [&_ul]:list-disc [&_ul]:space-y-1">
+    <div
+      className={cn(
+        "leading-relaxed",
+        "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0",
+        "[&_p]:my-2 [&_p]:leading-relaxed",
+        "[&_ul]:my-2 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5 [&_ul]:pl-0 [&_ul]:list-none",
+        "[&_ol]:my-2 [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-1.5 [&_ol]:pl-5 [&_ol]:list-decimal [&_ol]:marker:text-cyan",
+        "[&_ul>li]:relative [&_ul>li]:pl-4",
+        "[&_ul>li::before]:absolute [&_ul>li::before]:left-0 [&_ul>li::before]:top-[0.55em] [&_ul>li::before]:h-1.5 [&_ul>li::before]:w-1.5 [&_ul>li::before]:bg-cyan [&_ul>li::before]:content-['']",
+        "[&_strong]:font-semibold [&_strong]:text-cyan",
+        "[&_em]:italic [&_em]:text-fg-muted",
+        "[&_a]:text-cyan [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-cyan/80",
+        "[&_code]:rounded-sm [&_code]:border [&_code]:border-line [&_code]:bg-bg-elev [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_code]:text-cyan",
+        "[&_pre]:my-2 [&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:border [&_pre]:border-line [&_pre]:bg-bg-elev [&_pre]:p-2",
+        "[&_pre_code]:border-0 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-fg",
+      )}
+    >
       <ReactMarkdown
         components={{
           a: ({ ...props }) => (
