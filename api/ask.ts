@@ -4,7 +4,7 @@
 
 import Anthropic from "@anthropic-ai/sdk"
 
-export const config = { runtime: "nodejs" }
+export const config = { runtime: "edge" }
 
 const SYSTEM_PROMPT = `You are an AI concierge embedded in Raymond Shiner's personal portfolio site. You speak ABOUT him to visitors — answering questions about his work, experience, and how he thinks.
 
