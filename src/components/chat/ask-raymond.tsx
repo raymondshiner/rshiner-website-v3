@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { MessageSquare, Send, Sparkles, X } from "lucide-react"
+import ReactMarkdown from "react-markdown"
 import { cn } from "@/lib/utils"
 
 interface Message {
@@ -147,7 +148,11 @@ export function AskRaymond() {
                     : "ml-auto border-cyan bg-cyan/10 text-fg",
                 )}
               >
-                {m.content}
+                {m.role === "assistant" ? (
+                  <MarkdownBody>{m.content}</MarkdownBody>
+                ) : (
+                  m.content
+                )}
               </div>
             ))}
             {sending && (
@@ -201,6 +206,22 @@ export function AskRaymond() {
         </div>
       )}
     </>
+  )
+}
+
+function MarkdownBody({ children }: { children: string }) {
+  return (
+    <div className="space-y-2 leading-relaxed [&_a]:text-cyan [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-cyan/80 [&_code]:rounded-sm [&_code]:border [&_code]:border-line [&_code]:bg-bg-elev [&_code]:px-1 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_code]:text-cyan [&_em]:italic [&_li]:ml-4 [&_ol]:list-decimal [&_ol]:space-y-1 [&_p]:m-0 [&_pre]:overflow-x-auto [&_pre]:rounded-sm [&_pre]:border [&_pre]:border-line [&_pre]:bg-bg-elev [&_pre]:p-2 [&_pre_code]:border-0 [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:text-fg [&_strong]:font-semibold [&_strong]:text-fg [&_ul]:list-disc [&_ul]:space-y-1">
+      <ReactMarkdown
+        components={{
+          a: ({ ...props }) => (
+            <a {...props} target="_blank" rel="noopener noreferrer" />
+          ),
+        }}
+      >
+        {children}
+      </ReactMarkdown>
+    </div>
   )
 }
 
