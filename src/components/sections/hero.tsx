@@ -64,7 +64,7 @@ export function Hero() {
               className="max-w-3xl text-base text-fg-muted sm:text-lg"
             >
               I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
-              engineer with five years of frontend craft and two of leading
+              engineer with six years of frontend craft and two of leading
               teams. The way I make things has changed; what I make hasn't.
               The job is solving unique problems in the digital space — and
               the medium just got faster, broader, and a lot more interesting.
@@ -97,8 +97,8 @@ export function Hero() {
               // currently
             </p>
             <ul className="grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-1">
-              <StatusRow label="status" value="Open for senior + lead roles" />
-              <StatusRow label="role" value="Frontend lead, 7 yrs shipping" />
+              <StatusRow label="status" value="Open for FT, contract, freelance" />
+              <StatusRow label="role" value="Frontend lead, 6 yrs shipping" />
               <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
               <StatusRow label="tooling" value="Claude Code · Hyprland · Neovim" />
               <StatusRow label="shipping" value="Agent-driven dev workflows" />

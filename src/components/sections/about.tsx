@@ -9,8 +9,8 @@ export function About() {
   return (
     <Section
       id="about"
-      eyebrow="The work"
-      title="Built systems. Led teams. Ships with agents."
+      eyebrow="Background"
+      title="Building systems. Leading teams. Shipping with agents."
       description="I've been writing functional React since 2020 — at startups, at scale, on greenfield builds, in legacy battlegrounds. Code was the medium I trained for. AI is the medium I ship in now. The work — solving unique problems in the digital space — is the same. The craft is new."
     >
       <div className="grid gap-6 sm:grid-cols-2">

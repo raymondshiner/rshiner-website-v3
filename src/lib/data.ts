@@ -179,6 +179,6 @@ export const agentRoles: AgentRole[] = [
     duty: "Code Agents",
     quote: "“That's right… Me, Me, Me!”",
     detail:
-      "Not one agent — a team. They build features, refactor, debug, and ship deploys inside ~/src projects. Read first, then edit. Deployed primarily in parallel.",
+      "Not one agent — a team. They build features, refactor, debug, and ship deploys inside ~/src projects. Read first, then edit. Usually deployed in parallel.",
   },
 ]
