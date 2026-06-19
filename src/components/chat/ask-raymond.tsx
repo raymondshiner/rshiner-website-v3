@@ -34,6 +34,15 @@ export function AskRaymond() {
   const [input, setInput] = useState("")
   const [sending, setSending] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const abortRef = useRef<AbortController | null>(null)
+
+  useEffect(() => {
+    return () => abortRef.current?.abort()
+  }, [])
+
+  useEffect(() => {
+    if (!open) abortRef.current?.abort()
+  }, [open])
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -58,22 +67,31 @@ export function AskRaymond() {
     setMessages((m) => [...m, { role: "user", content: trimmed }])
     setSending(true)
 
+    abortRef.current?.abort()
+    const controller = new AbortController()
+    abortRef.current = controller
+
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ message: trimmed }),
+        signal: controller.signal,
       })
       if (!res.ok) throw new Error("api unavailable")
       const data: { reply: string } = await res.json()
       setMessages((m) => [...m, { role: "assistant", content: data.reply }])
-    } catch {
+    } catch (err) {
+      if ((err as { name?: string })?.name === "AbortError") return
       setMessages((m) => [
         ...m,
         { role: "assistant", content: localReply(trimmed) },
       ])
     } finally {
-      setSending(false)
+      if (abortRef.current === controller) {
+        abortRef.current = null
+        setSending(false)
+      }
     }
   }
 
@@ -168,6 +186,7 @@ export function AskRaymond() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask something…"
+              maxLength={500}
               className="flex-1 border-2 border-line bg-bg-elev px-3 py-2 text-sm text-fg placeholder:text-fg-muted focus:border-cyan focus:outline-none"
             />
             <button

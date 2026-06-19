@@ -52,9 +52,54 @@ interface AskBody {
   message?: string
 }
 
+const ALLOWED_HOSTS = [
+  "raymondshiner.com",
+  "www.raymondshiner.com",
+  "rshiner-website-v3.vercel.app",
+  "localhost:5180",
+  "localhost:5181",
+  "localhost:5182",
+  "localhost:5183",
+]
+
+const RATE_LIMIT = 10 // requests per IP
+const RATE_WINDOW_MS = 60_000
+const buckets = new Map<string, { count: number; resetAt: number }>()
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now()
+  const b = buckets.get(ip)
+  if (!b || b.resetAt < now) {
+    buckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS })
+    return false
+  }
+  b.count++
+  return b.count > RATE_LIMIT
+}
+
 export default async function handler(req: Request) {
   if (req.method !== "POST") {
     return json({ error: "method not allowed" }, 405)
+  }
+
+  const origin = req.headers.get("origin")
+  if (origin) {
+    try {
+      const host = new URL(origin).host
+      const ok =
+        ALLOWED_HOSTS.includes(host) || host.endsWith(".vercel.app")
+      if (!ok) return json({ error: "forbidden" }, 403)
+    } catch {
+      return json({ error: "forbidden" }, 403)
+    }
+  }
+
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown"
+  if (rateLimited(ip)) {
+    return json({ error: "rate limit exceeded" }, 429)
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY
