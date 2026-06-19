@@ -75,7 +75,7 @@ function ExperienceItem({ exp }: { exp: (typeof experience)[number] }) {
           <span
             className={
               "inline-flex shrink-0 items-center gap-1 text-xs uppercase not-italic tracking-wider transition-colors " +
-              (open ? "text-purple" : "text-purple/80 group-hover/toggle:text-purple")
+              (open ? "text-purple" : "text-purple group-hover/toggle:text-purple")
             }
           >
             <span>{open ? "less" : "more"}</span>

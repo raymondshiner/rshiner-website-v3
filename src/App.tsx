@@ -33,8 +33,11 @@ export default function App() {
 }
 
 function RouteFallback() {
+  // min-h-screen keeps the footer below the fold during route lazy-load,
+  // so its eventual push-down when the page chunk arrives doesn't shift
+  // visible content (kills the ~0.36 CLS hit Lighthouse mobile flagged).
   return (
-    <div className="flex min-h-[50vh] items-center justify-center text-fg-muted">
+    <div className="flex min-h-screen items-center justify-center text-fg-muted">
       <p className="animate-pulse text-xs uppercase tracking-[0.3em]">
         loading…
       </p>

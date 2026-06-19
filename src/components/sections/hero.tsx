@@ -60,7 +60,7 @@ export function Hero() {
             <motion.p
               initial={prefersReduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.05 }}
               className="max-w-3xl text-base text-fg-muted sm:text-lg"
             >
               I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
@@ -73,7 +73,7 @@ export function Hero() {
             <motion.div
               initial={prefersReduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="flex flex-wrap gap-4 self-start"
             >
               <Button asChild size="lg">
@@ -90,7 +90,7 @@ export function Hero() {
           <motion.aside
             initial={prefersReduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+            transition={{ duration: 0.45, delay: 0.15 }}
             className="h-full border-2 border-line bg-bg-elev/70 p-5 backdrop-blur-sm"
           >
             <p className="mb-4 text-xs uppercase tracking-[0.3em] text-fg-muted">

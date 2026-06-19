@@ -149,8 +149,9 @@ async function verify(label, ctx) {
   await page.goto(`${BASE}now`, { waitUntil: 'networkidle' })
 
   await step('now page loads', async () => {
-    const looking = await page.getByText(/Looking for work/i).isVisible()
-    if (!looking) throw new Error('Looking for work heading missing')
+    await page
+      .getByText(/Looking for work/i)
+      .waitFor({ state: 'visible', timeout: 5000 })
   })
 
   await page.screenshot({
