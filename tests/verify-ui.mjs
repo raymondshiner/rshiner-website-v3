@@ -22,7 +22,7 @@ const palette = {
   bg: '#1C1E26',
   'bg-elev': '#23262E',
   fg: '#D5CED9',
-  'fg-muted': '#677691',
+  'fg-muted': '#8B97AF',
   cyan: '#00E8C6',
   green: '#A8FF60',
   yellow: '#FFE66D',
