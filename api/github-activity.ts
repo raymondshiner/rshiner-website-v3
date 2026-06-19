@@ -110,6 +110,7 @@ async function fetchActivity(
       commitsLastWeek,
     }
   } catch (err) {
+    console.error(`[api/github-activity] fetch failed for ${slug}:`, err)
     return {
       slug,
       htmlUrl: null,

@@ -155,6 +155,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json({ reply: reply || "(no reply)" })
   } catch (err) {
+    console.error("[api/ask] upstream error:", err)
     return res
       .status(502)
       .json({ error: err instanceof Error ? err.message : "upstream error" })

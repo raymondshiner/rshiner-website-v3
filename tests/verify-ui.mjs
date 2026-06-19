@@ -89,9 +89,21 @@ async function verify(label, ctx) {
     record(`${label}/no-page-errors`, false, err.message),
   )
   page.on('console', (msg) => {
-    if (msg.type() === 'error') {
-      record(`${label}/no-console-errors`, false, msg.text())
-    }
+    if (msg.type() !== 'error') return
+    const text = msg.text()
+    const url = msg.location()?.url ?? ''
+    // Ignore failures from endpoints that don't exist in `vite preview` /
+    // `vite dev` — Vercel Analytics insights + Vercel functions only resolve
+    // on actual deploys. They are not regressions.
+    if (/\/_vercel\/insights\//.test(url)) return
+    if (/\/api\/(ask|github-activity)/.test(url)) return
+    record(`${label}/no-console-errors`, false, `${text} ${url}`)
+  })
+  page.on('requestfailed', (req) => {
+    const url = req.url()
+    if (/\/_vercel\/insights\//.test(url)) return
+    if (/\/api\/(ask|github-activity)/.test(url)) return
+    record(`${label}/no-request-failures`, false, `${req.method()} ${url}`)
   })
 
   const step = async (name, fn) => {
