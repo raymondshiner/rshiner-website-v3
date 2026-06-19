@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Link, Route, Routes } from "react-router-dom"
 import { Nav } from "@/components/layout/nav"
 import { Footer } from "@/components/layout/footer"
 import { AskRaymond } from "@/components/chat/ask-raymond"
@@ -47,9 +47,9 @@ function NotFound() {
       </h1>
       <p className="mt-4 text-fg-muted">
         That URL didn't resolve to anything. Head back to{" "}
-        <a href="/" className="text-cyan underline">
+        <Link to="/" className="text-cyan underline">
           home
-        </a>
+        </Link>
         .
       </p>
     </div>
