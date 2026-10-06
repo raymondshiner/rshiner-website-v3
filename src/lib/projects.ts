@@ -10,6 +10,11 @@ export interface ProjectMeta {
   highlight?: boolean
 }
 
+export const projectsIndex = {
+  url: "https://browse.shiner.app",
+  label: "browse.shiner.app",
+} as const
+
 export const projects: ProjectMeta[] = [
   {
     slug: "portfolio-v3",
@@ -45,6 +50,16 @@ export const projects: ProjectMeta[] = [
     github: "https://github.com/raymondshiner/montressor",
     caseStudy: "montressor",
     highlight: true,
+  },
+  {
+    slug: "projects-browser",
+    title: "Projects Browser",
+    tagline: "The canonical index of everything I've built.",
+    description:
+      "A Supabase-backed registry at browse.shiner.app that lists every project in one place — personal tools, experiments, and client work. Adding a project is a row, not a redeploy. It's also the front door to the shiner.app umbrella, where live apps get launch cards instead of repo links.",
+    stack: ["React 19", "Vite", "TypeScript", "Tailwind v4", "Supabase", "Cloudflare Pages"],
+    github: "https://github.com/raymondshiner/projects-browser",
+    live: "https://browse.shiner.app",
   },
   {
     slug: "rshiner-website-v2",

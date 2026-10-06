@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom"
-import { Menu, X } from "lucide-react"
+import { ArrowUpRight, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { site } from "@/lib/site"
+import { projectsIndex } from "@/lib/projects"
 
 const links = [
   { to: "/", label: "Home" },
@@ -122,6 +123,15 @@ export function Nav() {
               </NavLink>
             ),
           )}
+          <a
+            href={projectsIndex.url}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="ml-3 inline-flex items-center gap-1.5 border-2 border-cyan px-3 py-1.5 text-sm uppercase tracking-wider text-cyan transition-all hover:-translate-y-0.5 shadow-brutal"
+          >
+            Projects
+            <ArrowUpRight className="size-3.5" />
+          </a>
           <NavLink
             to="/now"
             className={({ isActive }) =>
@@ -178,6 +188,17 @@ export function Nav() {
                 </li>
               ),
             )}
+            <li className="mt-2">
+              <a
+                href={projectsIndex.url}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 border-2 border-cyan px-3 py-2 text-base uppercase tracking-wider text-cyan shadow-brutal"
+              >
+                Projects
+                <ArrowUpRight className="size-4" />
+              </a>
+            </li>
             <li className="mt-2">
               <NavLink
                 to="/now"
