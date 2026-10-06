@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { Section } from "@/components/ui/section"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { projects } from "@/lib/projects"
+import { projects, projectsIndex } from "@/lib/projects"
 
 export function Projects() {
   const highlights = projects.filter((p) => p.highlight)
@@ -35,6 +35,23 @@ export function Projects() {
           </div>
         </>
       )}
+
+      <div className="mt-12 flex flex-col items-start gap-2 border-t-2 border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-fg-muted">
+          This is the curated set. The full index — every project, always
+          current — lives at{" "}
+          <span className="text-fg">{projectsIndex.label}</span>.
+        </p>
+        <a
+          href={projectsIndex.url}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="inline-flex shrink-0 items-center gap-2 border-2 border-cyan px-4 py-2 text-sm uppercase tracking-wider text-cyan transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal"
+        >
+          Browse everything
+          <ArrowUpRight className="size-4" />
+        </a>
+      </div>
     </Section>
   )
 }
