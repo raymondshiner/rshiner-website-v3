@@ -89,16 +89,18 @@ export interface ExperienceEntry {
 
 export const experience: ExperienceEntry[] = [
   {
-    title: "Software Engineer",
+    title: "Software Engineer, CORE Platform Team",
     company: "Divisions Maintenance Group",
     period: "May 2023 — May 2026",
-    headline: "IC, tech lead, and cross-team facilitator on greenfield builds and full app rewrites.",
+    headline: "Internal platform group owning ~80 of ~150 internally deployed services; frontend sub-team of three.",
     highlight: "Thousands of files migrated • company-wide adoption",
     bullets: [
-      "Designed and shipped a fleet of **VS Code + Claude agents and skills** (Sonnet 4.6) that ran across entire repos with minimal human intervention — migrating **thousands of files across multiple teams** off a seven-year-old internal library onto its modern replacement.",
-      "Led a core infrastructure shift from a fragile **segmented/replicated architecture to module federation**.",
-      "Built a **novel UI component** for navigating complex, nuanced hierarchies — replacing a recurring source of user friction across the platform.",
-      "Drove **clean-code patterns, testing standards, and cross-team facilitation** as both IC and informal tech lead.",
+      "Proposed **module federation** as the delivery architecture for internal applications, won approval, and built the host against legacy infrastructure — it became the founding basis for the **company-wide infrastructure rewrite** that replaced the old platform.",
+      "Built a reusable, **commit-gated migration agent** to move codebases off a seven-year-old internal component library; ran across **thousands of files**, shipped centrally with documentation, and adopted by the wider React group as the base for their own MUI v6→v8 upgrade.",
+      "Diagnosed a heavily-criticized internal validation tool as a **UX failure rather than a bug backlog**, and convinced leadership to fund a rebuild instead of a patch pass; the complaints stopped.",
+      "Introduced an **API typing and mapping layer** mid-refactor and designed a **backend-for-frontend contract** to decouple frontend from backend services, including a v2 API shape that replaced multiple round trips with a single request.",
+      "Owned **on-call incident triage** end to end — including a Sev 2 cardholder-data exposure — running post-mortems and shipping resilience fixes.",
+      "Defined the frontend group's **clean-code and testing standards**, authored its Frontend Patterns document, mentored engineers in 1-on-1s, and was loaned to other teams to integrate their work with company systems.",
     ],
   },
   {
