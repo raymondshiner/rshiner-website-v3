@@ -1,6 +1,6 @@
 ## The brief
 
-Build a portfolio that doesn't just *show* work — *embodies* it. The site should make my AI-native workflow visible: the kind of thing that's hard to fake, and the kind of thing a recruiter or future collaborator can't get from a resume.
+Build a portfolio that doesn't just *show* work — *embodies* it. The site should show how I actually build things — including, honestly, how AI fits into it: the kind of thing that's hard to fake, and the kind of thing a recruiter or future collaborator can't get from a resume.
 
 ## Why v3 (and what was wrong with v2)
 
@@ -15,8 +15,8 @@ v3 had to fix the *positioning* problem, not the *stack* problem.
 Three guardrails framed every decision:
 
 1. **Cohere with the rest of my digital surface.** I'd already built a hand-tuned Hyprland desktop in the Andromeda palette — cyan accents, JetBrains Mono, brutalist edges. The site borrows that vocabulary directly.
-2. **Make the AI workflow legible.** Most "AI-native engineer" portfolios just say the words. Mine carries a dedicated Workflow section that names the crew (Jarvis, Friday, Smith) and explains what each does. The desktop the crew runs on is public in [`montressor`](https://github.com/raymondshiner/montressor); the agent prompts and configs themselves stay private — that's the workshop, not the showroom.
-3. **Ship the experience, not just the page.** The "Ask Raymond" chat is the differentiator — it lets visitors interrogate my background in their own words, instead of clicking through bullet lists.
+2. **Make the AI use legible — and honest.** Most portfolios either hide the AI or make it the whole brand. Mine does neither: the homepage's "How I work" section spells out what I delegate, what stays human, and how output earns trust. The deeper tooling story lives here in the case study — see "The crew" below.
+3. **Ship the experience, not just the page.** The "Ask Raymond" chat is the differentiator — a clearly-labeled assistant that lets visitors interrogate my background in their own words, instead of clicking through bullet lists. It's also a live sample of the discipline: scoped to sourced facts, honest when it doesn't know.
 
 ## Architecture notes
 
@@ -26,6 +26,16 @@ Three guardrails framed every decision:
 - **Chat:** edge function calling Claude with my resume + projects cached as system context
 - **Theme:** Andromeda tokens promoted to shadcn's semantic names so the components stay portable
 
+## The crew
+
+For those who want the tooling detail: the subagent setup behind the workflow is three custom Claude Code agents, configured in Markdown and version-controlled alongside my dotfiles.
+
+- **Jarvis — desktop & machine.** Runs my Arch + Hyprland workstation: waybar modules, GTK popups, hotkeys, packages, dotfiles — all in the Andromeda palette, all public in [`montressor`](https://github.com/raymondshiner/montressor).
+- **Friday — research.** External web research and product recommendations. No code, no system work — synthesizes multiple sources into one actionable answer.
+- **Smith — code.** Not one agent but a team: they build features, refactor, debug, and ship deploys inside my project directories. Read first, then edit. Usually deployed in parallel.
+
+The agent prompts and configs stay in a private repo — that's the workshop, not the showroom. Every change they produce goes through the same gates as a human teammate's: strict TypeScript, tests, UI verification, and my review before it ships.
+
 ## What I'd do differently
 
 If the chat takes off, I'd add a feedback loop — let visitors thumbs-down answers and route those into a small eval set I can run before each deploy. Portfolio as product.
@@ -34,4 +44,4 @@ If the chat takes off, I'd add a feedback loop — let visitors thumbs-down answ
 
 - [`raymondshiner/rshiner-website-v3`](https://github.com/raymondshiner/rshiner-website-v3) — source for this site
 - [`raymondshiner/montressor`](https://github.com/raymondshiner/montressor) — the Andromeda desktop dotfiles this site borrows its vocabulary from
-- The agent crew that ships it all stays in a private repo. Email if you want a walkthrough.
+- The agent configs stay in a private repo. Email if you want a walkthrough.

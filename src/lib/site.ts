@@ -1,8 +1,8 @@
 export const site = {
   name: "Raymond Shiner",
-  title: "AI-native software engineer",
+  title: "Software engineer — React & TypeScript",
   shortBio:
-    "I build React systems and the agentic workflows that ship them. Five years of frontend craft, two of leading teams, and a desktop full of hand-built tools.",
+    "I build React systems that stay easy to change. Six years of frontend craft, two of leading teams, and a desktop full of hand-built tools.",
   location: "Spokane Valley, WA",
   email: "raymondshiner@gmail.com",
   github: "https://github.com/raymondshiner",

@@ -21,7 +21,7 @@ export const projects: ProjectMeta[] = [
     title: "Portfolio v3 (this site)",
     tagline: "The portfolio you're reading, built with the workflow it describes.",
     description:
-      "AI-native portfolio: Andromeda theme, brutalist type, MDX case studies, in-site AI chat. Built end-to-end alongside my Claude Code agent setup.",
+      "Andromeda theme, brutalist type, MDX case studies, an in-site chat assistant, and Lighthouse 90+ on mobile. Designed, built, and shipped end-to-end — the case study covers exactly how.",
     stack: ["React 19", "Vite", "Tailwind v4", "shadcn/ui", "MDX", "Motion"],
     github: "https://github.com/raymondshiner/rshiner-website-v3",
     live: "https://www.raymondshiner.com",
@@ -33,7 +33,7 @@ export const projects: ProjectMeta[] = [
     title: "Al Bhed Translator",
     tagline: "Instant FFX Al Bhed ↔ English, mobile-first, Andromeda-themed.",
     description:
-      "Bidirectional substitution-cipher translator for Final Fantasy X's Al Bhed language. Built end-to-end with the agent crew as the proving ground for my validated Vite + React 19 + Tailwind v4 + shadcn stack.",
+      "Bidirectional substitution-cipher translator for Final Fantasy X's Al Bhed language. The proving ground for my validated Vite + React 19 + Tailwind v4 + shadcn stack — mobile-first, Playwright-verified.",
     stack: ["React 19", "Vite", "TypeScript", "Tailwind v4", "shadcn/ui", "Playwright"],
     github: "https://github.com/raymondshiner/al-bhed-translator",
     live: "https://albhed.raymondshiner.com",
@@ -43,10 +43,10 @@ export const projects: ProjectMeta[] = [
   {
     slug: "montressor",
     title: "Montressor",
-    tagline: "Hand-built Hyprland desktop with a Claude Code agent crew.",
+    tagline: "Hand-built Hyprland desktop, every pixel on purpose.",
     description:
-      "My hyper-personalized Arch/Hyprland desktop environment. Hand-built waybar modules, Python + GTK popup menus for every interactive control, and the Andromeda palette running edge-to-edge. Desktop dotfiles are public; the Claude Code agent crew that runs on top lives in a separate private repo — the secret sauce stays sealed.",
-    stack: ["Hyprland", "Python (GTK)", "Zsh", "Claude Code", "Subagents"],
+      "My hyper-personalized Arch/Hyprland desktop environment. Hand-built waybar modules, Python + GTK popup menus for every interactive control, and the Andromeda palette running edge-to-edge. The desktop dotfiles are public; the automation layer on top lives in a separate private repo.",
+    stack: ["Hyprland", "Python (GTK)", "Zsh", "Claude Code"],
     github: "https://github.com/raymondshiner/montressor",
     caseStudy: "montressor",
     highlight: true,

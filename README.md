@@ -1,6 +1,6 @@
 # rshiner-website-v3
 
-Raymond Shiner's personal site — third iteration. AI-native portfolio that carries the Andromeda theme from my Hyprland desktop into the browser.
+Raymond Shiner's personal site — third iteration. Carries the Andromeda theme from my Hyprland desktop into the browser.
 
 Live: [raymondshiner.com](https://www.raymondshiner.com)
 Predecessors: [v1](https://github.com/raymondshiner/rshiner-website-v1) · [v2](https://github.com/raymondshiner/rshiner-website-v2)
@@ -10,7 +10,7 @@ Predecessors: [v1](https://github.com/raymondshiner/rshiner-website-v1) · [v2](
 - Single-page portfolio with a `/now` living page and per-project case studies via MDX
 - "Ask Raymond" chat backed by the Anthropic SDK (`api/ask.ts`) — Origin-allowlisted, per-IP rate-limited, client AbortController + 500-char cap
 - Live GitHub activity chips on `/now` (`api/github-activity.ts`) — CDN-cached, surfaces unauth rate-limit, graceful empty state on failure
-- Workflow section that names the actual subagent crew (Jarvis, Friday, Smith)
+- "How I work" section laying out the AI delegation split — what's delegated, what stays human, how output earns trust
 
 ## Stack
 
@@ -47,7 +47,7 @@ src/
   components/       # sections/, layout/, chat/, ui/, now/
   content/          # now.mdx + case-studies/*.mdx
   pages/            # home, now, case-study
-  lib/              # data.ts (skills/experience/agents), projects.ts, site.ts
+  lib/              # data.ts (skills/experience), projects.ts, site.ts
 api/
   ask.ts                # Anthropic-backed chat handler
   github-activity.ts    # GitHub repo activity for /now

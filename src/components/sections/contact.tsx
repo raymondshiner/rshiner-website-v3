@@ -26,7 +26,7 @@ export function Contact() {
       id="contact"
       eyebrow="Let's build"
       title="Open for new collaborations."
-      description="Got something interesting? I'm picky about clients and generous with my time. Email is best — Ask Raymond is the fastest way to find out if we'd be a fit."
+      description="Got something interesting? I'm picky about clients and generous with my time. Email is best — or ask the site's assistant if you want the quick version of whether we'd be a fit."
     >
       <motion.div
         initial={prefersReduced ? false : { opacity: 0, y: 12 }}

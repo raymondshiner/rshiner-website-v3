@@ -1,13 +1,5 @@
 import type { LucideIcon } from "lucide-react"
-import {
-  Bot,
-  Code2,
-  Hammer,
-  Layers,
-  Sparkles,
-  Terminal,
-  Users,
-} from "lucide-react"
+import { Bot, Code2, Layers, Users } from "lucide-react"
 
 export interface SkillCategory {
   icon: LucideIcon
@@ -32,21 +24,6 @@ export const skillCategories: SkillCategory[] = [
       "TDD",
     ],
     accent: "cyan",
-  },
-  {
-    icon: Bot,
-    title: "AI-native workflow",
-    summary: "Conversation as development.",
-    items: [
-      "Claude Code (CLI)",
-      "Custom subagent crew",
-      "Anthropic SDK",
-      "ChatGPT / Claude UI",
-      "MCP servers",
-      "Production LLM tooling",
-      "Post-IDE workflow",
-    ],
-    accent: "purple",
   },
   {
     icon: Layers,
@@ -74,6 +51,20 @@ export const skillCategories: SkillCategory[] = [
       "Hiring + training",
     ],
     accent: "yellow",
+  },
+  {
+    icon: Bot,
+    title: "AI tooling",
+    summary: "Heavy use, human judgment.",
+    items: [
+      "Claude Code (CLI)",
+      "Custom subagents",
+      "Anthropic SDK",
+      "MCP servers",
+      "Production LLM tooling",
+      "ChatGPT / Claude UI",
+    ],
+    accent: "purple",
   },
 ]
 
@@ -147,40 +138,5 @@ export const experience: ExperienceEntry[] = [
       "Lead frontend on a **SaaS cloud backup UI**.",
       "**Apollo GraphQL, MSAL, MS Graph**, occasional C# backend work.",
     ],
-  },
-]
-
-export interface AgentRole {
-  icon: LucideIcon
-  name: string
-  duty: string
-  quote: string
-  detail: string
-}
-
-export const agentRoles: AgentRole[] = [
-  {
-    icon: Terminal,
-    name: "Jarvis",
-    duty: "Desktop & Machine",
-    quote: "“Jarvis, I have an idea…”",
-    detail:
-      "Runs my Arch + Hyprland workstation. Waybar modules, GTK popups, hotkeys, packages, dotfiles — all in the Andromeda palette, all version-controlled in the montressor repos.",
-  },
-  {
-    icon: Sparkles,
-    name: "Friday",
-    duty: "Research Assistant",
-    quote: "“Quick question…”",
-    detail:
-      "External web research and product recommendations. No code, no system work — just synthesizes multiple sources into one actionable answer so the other agents (and I) can move.",
-  },
-  {
-    icon: Hammer,
-    name: "Smith",
-    duty: "Code Agents",
-    quote: "“That's right… Me, Me, Me!”",
-    detail:
-      "Not one agent — a team. They build features, refactor, debug, and ship deploys inside ~/src projects. Read first, then edit. Usually deployed in parallel.",
   },
 ]
