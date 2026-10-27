@@ -11,7 +11,8 @@ export function Footer() {
             — Built with intent
           </p>
           <p className="text-sm text-fg-muted">
-            React 19, Vite, Tailwind v4, and a stack of Claude Code subagents.
+            React 19, Vite, Tailwind v4. AI in the loop, a human on the
+            commit.
             {" "}
             <a
               href="https://github.com/raymondshiner/rshiner-website-v3"

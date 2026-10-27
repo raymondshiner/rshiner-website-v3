@@ -1,7 +1,28 @@
+import { Link } from "react-router-dom"
 import { Section } from "@/components/ui/section"
-import { agentRoles } from "@/lib/data"
 
-const agentAccents = ["#00E8C6", "#FFE66D", "#B084EB"] as const
+const delegated = [
+  {
+    title: "Scaffolding and boilerplate.",
+    detail:
+      "New components, config wiring, test harnesses. The shape is already decided — the typing isn't the job.",
+  },
+  {
+    title: "Mechanical migrations.",
+    detail:
+      "Codemods, dependency upgrades, renames that fan out across a codebase. The pattern is fixed; volume is the problem.",
+  },
+  {
+    title: "First-pass research.",
+    detail:
+      "Library comparisons, API surface reading, error archaeology. Agents gather sources; I weigh them.",
+  },
+  {
+    title: "Test extension.",
+    detail:
+      "I write the first test to set the pattern. Agents extend the coverage from there.",
+  },
+]
 
 const humanCalls = [
   {
@@ -36,133 +57,135 @@ const humanCalls = [
   },
 ]
 
+const trustGates = [
+  {
+    title: "Read before it ships.",
+    detail:
+      "Every diff gets reviewed like a PR from a new hire — skeptically, with depth scaling to stakes. Security and auth get read line by line, every time.",
+  },
+  {
+    title: "Gates, not vibes.",
+    detail:
+      "Strict TypeScript, tests, and UI verification on real desktop and mobile viewports. Output that can't pass the gates doesn't land.",
+  },
+  {
+    title: "My name on the commit.",
+    detail:
+      "If it breaks in production, “the AI did it” isn't an answer. I ship it, I own it.",
+  },
+]
+
+function SubHeading({
+  marker,
+  title,
+  intro,
+}: {
+  marker: string
+  title: string
+  intro: string
+}) {
+  return (
+    <>
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
+        <p className="text-xs uppercase tracking-[0.3em] text-cyan">
+          — {marker}
+        </p>
+        <h3 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
+          {title}
+        </h3>
+      </div>
+      <p className="mb-10 max-w-2xl text-sm text-fg-muted sm:text-base">
+        {intro}
+      </p>
+    </>
+  )
+}
+
+function CallList({
+  items,
+  accentClass,
+}: {
+  items: { title: string; detail: string }[]
+  accentClass: string
+}) {
+  return (
+    <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((item, i) => (
+        <li key={item.title} className={`border-l-2 ${accentClass} pl-5`}>
+          <p className="mb-2 text-xs uppercase tracking-[0.25em] text-fg-muted">
+            / 0{i + 1}
+          </p>
+          <h4 className="mb-1.5 font-bold text-fg">{item.title}</h4>
+          <p className="text-sm text-fg-muted">{item.detail}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 export function Workflow() {
   return (
     <Section
       id="workflow"
-      eyebrow="How I build"
-      title="My team."
-      description="I treat my AI workflow like part of the stack. Cursor and Copilot are out; the terminal is the workshop now. A small team of custom subagents, each with a job, configured in Markdown and version-controlled alongside the rest of my dotfiles. The skill isn't prompting — it's fluency. Conversation IS development — this site included."
+      eyebrow="How I work"
+      title="AI is in the toolchain. Judgment isn't delegated."
+      description="I use AI heavily, and openly: agents take the mechanical work so my attention goes where it's actually needed. Every delegation has a boundary, and every line gets read before it ships. The commit — and the responsibility — stays mine. Here's the split."
     >
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {agentRoles.map((agent, i) => {
-          const accent = agentAccents[i % agentAccents.length]
-          return (
-            <div
-              key={agent.name}
-              className="group/flip h-56 [perspective:1200px]"
-            >
-              <div className="relative h-full w-full transition-transform duration-700 ease-out [transform-style:preserve-3d] group-hover/flip:[transform:rotateY(180deg)] group-focus-within/flip:[transform:rotateY(180deg)]">
-                {/* Front */}
-                <div
-                  tabIndex={0}
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-2xl border-2 p-6 text-center outline-none [backface-visibility:hidden]"
-                  style={{
-                    borderColor: accent,
-                    background: `linear-gradient(160deg, ${accent}26 0%, ${accent}0D 60%, var(--color-bg-elev) 100%)`,
-                    boxShadow: `0 0 0 1px ${accent}33, 0 12px 32px -16px ${accent}80`,
-                  }}
-                >
-                  <span
-                    className="flex size-14 items-center justify-center rounded-xl border-2"
-                    style={{
-                      borderColor: accent,
-                      background: `${accent}1F`,
-                      boxShadow: `0 0 18px ${accent}55`,
-                    }}
-                  >
-                    <agent.icon
-                      className="size-7"
-                      style={{ color: accent }}
-                    />
-                  </span>
-                  <div>
-                    <p
-                      className="text-lg font-bold leading-tight"
-                      style={{ color: accent }}
-                    >
-                      {agent.name}
-                    </p>
-                    <p className="text-[10px] uppercase tracking-[0.2em] text-fg-muted">
-                      {agent.duty}
-                    </p>
-                  </div>
-                  <p
-                    className="text-sm italic"
-                    style={{ color: `${accent}D9` }}
-                  >
-                    {agent.quote}
-                  </p>
-                </div>
-                {/* Back */}
-                <div
-                  className="absolute inset-0 flex flex-col gap-3 rounded-2xl border-2 bg-bg-elev p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                  style={{
-                    borderColor: accent,
-                    boxShadow: `4px 4px 0 0 ${accent}`,
-                  }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex size-9 shrink-0 items-center justify-center rounded-lg border-2"
-                      style={{
-                        borderColor: accent,
-                        background: `${accent}1F`,
-                      }}
-                    >
-                      <agent.icon
-                        className="size-4"
-                        style={{ color: accent }}
-                      />
-                    </span>
-                    <div className="min-w-0">
-                      <p
-                        className="font-bold leading-tight"
-                        style={{ color: accent }}
-                      >
-                        {agent.name}
-                      </p>
-                      <p className="text-[10px] uppercase tracking-[0.2em] text-fg-muted">
-                        {agent.duty}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-fg-muted">{agent.detail}</p>
-                </div>
-              </div>
-            </div>
-          )
-        })}
+      <div>
+        <SubHeading
+          marker="First"
+          title="What I delegate."
+          intro="The work where the decision is already made and what's left is execution. Handing it off isn't laziness — it's where the hours come back."
+        />
+        <CallList items={delegated} accentClass="border-purple" />
       </div>
 
       <div className="mt-16 border-t-2 border-line-strong pt-12 sm:mt-20">
-        <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:gap-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-cyan">
-            — But
-          </p>
-          <h3 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
-            What stays human.
-          </h3>
-        </div>
-        <p className="mb-10 max-w-2xl text-sm text-fg-muted sm:text-base">
-          Agents do execution. Judgment is mine. The list of things I don't
-          delegate is shorter than I'd expect — but the items on it are
-          non-negotiable.
+        <SubHeading
+          marker="But"
+          title="What stays human."
+          intro="Agents do execution. Judgment is mine. The list of things I don't delegate is shorter than I'd expect — but the items on it are non-negotiable."
+        />
+        <CallList items={humanCalls} accentClass="border-cyan" />
+      </div>
+
+      <div className="mt-16 border-t-2 border-line-strong pt-12 sm:mt-20">
+        <SubHeading
+          marker="And"
+          title="How output earns trust."
+          intro="Generated code is a draft, not a deliverable. Nothing lands without passing the same bar I'd hold a teammate to."
+        />
+        <CallList items={trustGates} accentClass="border-green" />
+      </div>
+
+      <div className="mt-16 rounded-2xl border-2 border-line-strong bg-bg-elev p-6 sm:mt-20 sm:p-8">
+        <p className="mb-3 text-xs uppercase tracking-[0.3em] text-cyan">
+          — Proof, not claims
         </p>
-        <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {humanCalls.map((item, i) => (
-            <li
-              key={item.title}
-              className="border-l-2 border-cyan pl-5"
-            >
-              <p className="mb-2 text-xs uppercase tracking-[0.25em] text-fg-muted">
-                / 0{i + 1}
-              </p>
-              <h4 className="mb-1.5 font-bold text-fg">{item.title}</h4>
-              <p className="text-sm text-fg-muted">{item.detail}</p>
-            </li>
-          ))}
-        </ul>
+        <p className="max-w-3xl text-sm text-fg-muted sm:text-base">
+          At DMG I built a commit-gated migration agent that moved production
+          codebases off a seven-year-old component library — thousands of
+          files, shipped centrally with documentation, adopted by the wider
+          React group for their own upgrades. The same discipline built this
+          site.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3 text-sm font-bold">
+          <Link
+            to="/case-study/portfolio-v3"
+            className="text-cyan transition-colors hover:text-fg"
+          >
+            Read how this site was built →
+          </Link>
+          <button
+            type="button"
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent("ask-raymond:open"))
+            }
+            className="cursor-pointer text-purple transition-colors hover:text-fg"
+          >
+            Or ask the assistant I built →
+          </button>
+        </div>
       </div>
     </Section>
   )

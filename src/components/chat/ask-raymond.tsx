@@ -10,7 +10,7 @@ interface Message {
 
 const seedSuggestions = [
   "What stack does Raymond use most?",
-  "Tell me about his agent setup",
+  "How does he use AI in his workflow?",
   "Is he available for freelance?",
 ]
 
@@ -18,7 +18,7 @@ const fallbackResponses: Record<string, string> = {
   stack:
     "React 19, TypeScript, Tailwind v4, Vite, shadcn/ui. C# on the backend when needed. Apollo GraphQL, MS Graph + MSAL in production.",
   agent:
-    "He runs a Claude Code crew of three custom subagents: Jarvis (desktop & machine — Arch/Hyprland, dotfiles, hotkeys), Friday (research assistant — external web research and product picks), Smith (code agent — features, refactors, deploys; spawns in parallel for bigger jobs). The Arch + Hyprland desktop they run on is public at github.com/raymondshiner/montressor; the agent prompts and configs themselves stay in a separate private repo — that's the workshop, sealed.",
+    "He uses AI heavily and openly — Claude Code in the terminal, custom subagents for the mechanical work: migrations, scaffolding, test extension, research. The boundaries are the point: architecture, security, problem framing, and people decisions stay human, and everything gets reviewed before it ships. At DMG he built a commit-gated migration agent that moved production codebases off a seven-year-old component library. The full split is in the 'How I work' section on the homepage.",
   freelance:
     "Yes — fully open right now. No current full-time gig as of May 2026, taking full-time, contract, and freelance leads. raymondshiner@gmail.com is the fastest path.",
 }
@@ -29,7 +29,7 @@ export function AskRaymond() {
     {
       role: "assistant",
       content:
-        "Hey — I'm an AI primed on Raymond's resume, projects, and /now page. Ask me anything about his work.",
+        "Hey — I'm an assistant Raymond built, primed on his resume, projects, and /now page. A working demo of how he uses AI: scoped, sourced, clearly labeled. Ask me anything about his work.",
     },
   ])
   const [input, setInput] = useState("")
@@ -39,6 +39,12 @@ export function AskRaymond() {
 
   useEffect(() => {
     return () => abortRef.current?.abort()
+  }, [])
+
+  useEffect(() => {
+    const onOpen = () => setOpen(true)
+    window.addEventListener("ask-raymond:open", onOpen)
+    return () => window.removeEventListener("ask-raymond:open", onOpen)
   }, [])
 
   useEffect(() => {
@@ -105,10 +111,10 @@ export function AskRaymond() {
           "fixed bottom-6 right-6 z-50 flex h-14 items-center gap-2 border-2 border-cyan bg-bg-elev px-4 font-semibold uppercase tracking-wider text-cyan transition-all hover:shadow-brutal",
           open && "opacity-0 pointer-events-none",
         )}
-        aria-label="Open Ask Raymond"
+        aria-label="Ask about my work"
       >
         <Sparkles className="size-4" />
-        <span className="hidden sm:inline">Ask Raymond</span>
+        <span className="hidden sm:inline">Ask about my work</span>
       </button>
 
       {open && (
@@ -254,9 +260,9 @@ function localReply(prompt: string): string {
   const p = prompt.toLowerCase()
   if (p.includes("stack") || p.includes("tech") || p.includes("framework"))
     return fallbackResponses.stack
-  if (p.includes("agent") || p.includes("ai") || p.includes("claude"))
-    return fallbackResponses.agent
   if (p.includes("hire") || p.includes("freelance") || p.includes("available"))
     return fallbackResponses.freelance
-  return "I'm running in offline mode right now (the AI backend isn't wired up yet) — email raymondshiner@gmail.com and the real Raymond will get back to you."
+  if (p.includes("agent") || /\bai\b/.test(p) || p.includes("claude"))
+    return fallbackResponses.agent
+  return "I can't reach the chat backend right now — email raymondshiner@gmail.com and the real Raymond will get back to you."
 }

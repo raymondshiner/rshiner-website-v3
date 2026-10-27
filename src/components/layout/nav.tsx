@@ -9,7 +9,7 @@ import { projectsIndex } from "@/lib/projects"
 const links = [
   { to: "/", label: "Home" },
   { to: "/#about", label: "About" },
-  { to: "/#workflow", label: "Workflow" },
+  { to: "/#workflow", label: "How I work" },
   { to: "/#work", label: "Work" },
   { to: "/#contact", label: "Contact" },
 ]

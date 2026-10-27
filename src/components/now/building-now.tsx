@@ -22,7 +22,7 @@ const projects: Project[] = [
     githubUrl: "https://github.com/raymondshiner/rshiner-website-v3",
     liveUrl: "https://raymondshiner.com",
     caseStudy: "portfolio-v3",
-    blurb: <>this site — Andromeda, MDX, and the agent crew that ships it.</>,
+    blurb: <>this site — Andromeda, MDX, live GitHub chips, Lighthouse 90+.</>,
   },
   {
     slug: "raymondshiner/al-bhed-translator",
@@ -33,7 +33,7 @@ const projects: Project[] = [
     blurb: (
       <>
         the FFX cipher tool — proving ground for the Andromeda theme and the
-        Smith MCP workflow I now use everywhere else.
+        validated Vite + React 19 stack I now use everywhere else.
       </>
     ),
   },
@@ -44,8 +44,8 @@ const projects: Project[] = [
     caseStudy: "montressor",
     blurb: (
       <>
-        hand-built Arch + Hyprland desktop dotfiles. The agent crew that
-        runs on top lives in a separate private repo.
+        hand-built Arch + Hyprland desktop dotfiles. The automation layer on
+        top lives in a separate private repo.
       </>
     ),
   },

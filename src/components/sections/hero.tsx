@@ -4,11 +4,11 @@ import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 
 const headlineLines = [
-  "Code was the medium.",
-  "AI is the new one.",
-  "The work is still the work.",
+  "Unique problems.",
+  "Digital space.",
+  "Six years shipping.",
 ]
-const highlightWords = new Set(["AI", "work", "work."])
+const highlightWords = new Set(["problems.", "shipping."])
 
 export function Hero() {
   const prefersReduced = useReducedMotion()
@@ -65,9 +65,9 @@ export function Hero() {
             >
               I'm <span className="text-fg">Raymond Shiner</span> — a React/TS
               engineer with six years of frontend craft and two of leading
-              teams. The way I make things has changed; what I make hasn't.
-              The job is solving unique problems in the digital space — and
-              the medium just got faster, broader, and a lot more interesting.
+              teams. The job is solving unique problems in the digital space —
+              at startups, at scale, greenfield and legacy. My toolchain has
+              changed a lot; what I ship hasn't.
             </motion.p>
 
             <motion.div
@@ -101,7 +101,7 @@ export function Hero() {
               <StatusRow label="role" value="Frontend lead, 6 yrs shipping" />
               <StatusRow label="stack" value="React 19 · TS · Tailwind v4" />
               <StatusRow label="tooling" value="Claude Code · Hyprland · Neovim" />
-              <StatusRow label="shipping" value="Agent-driven dev workflows" />
+              <StatusRow label="shipping" value="PWAs · dev tooling · this site" />
               <StatusRow label="based" value="Spokane Valley, WA · remote" />
             </ul>
           </motion.aside>

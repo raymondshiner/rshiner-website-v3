@@ -10,8 +10,8 @@ export function About() {
     <Section
       id="about"
       eyebrow="Background"
-      title="Building systems. Leading teams. Shipping with agents."
-      description="I've been writing functional React since 2020 — at startups, at scale, on greenfield builds, in legacy battlegrounds. Code was the medium I trained for. AI is the medium I ship in now. The work — solving unique problems in the digital space — is the same. The craft is new."
+      title="Building systems. Leading teams. Shipping."
+      description="I've been writing functional React since 2020 — at startups, at scale, on greenfield builds, in legacy battlegrounds. The constant is the work: solving unique problems in systems built to stay easy to change. The tools evolve; the standards don't."
     >
       <div className="grid gap-6 sm:grid-cols-2">
         {skillCategories.map((cat) => (
@@ -35,6 +35,8 @@ export function About() {
 
 function ExperienceItem({ exp }: { exp: (typeof experience)[number] }) {
   const [open, setOpen] = useState(false)
+  const leadBullets = exp.bullets.slice(0, 2)
+  const restBullets = exp.bullets.slice(2)
   return (
     <li className="relative">
       <span
@@ -65,58 +67,67 @@ function ExperienceItem({ exp }: { exp: (typeof experience)[number] }) {
             {exp.highlight}
           </p>
         )}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="group/toggle mt-3 flex w-full cursor-pointer items-baseline gap-3 text-left text-sm italic text-fg"
-        >
-          {exp.headline && <span className="flex-1">{exp.headline}</span>}
-          <span
-            className={
-              "inline-flex shrink-0 items-center gap-1 text-xs uppercase not-italic tracking-wider transition-colors " +
-              (open ? "text-purple" : "text-purple group-hover/toggle:text-purple")
-            }
+        {exp.headline && (
+          <p className="mt-3 text-sm italic text-fg">{exp.headline}</p>
+        )}
+        <div className="mt-4 border-l-2 border-purple/40 bg-purple/[0.04] py-4 pl-5 pr-4">
+          <ul className="space-y-3 text-sm text-fg-muted">
+            {leadBullets.map((b, i) => (
+              <li key={i} className="flex gap-3">
+                <span className="mt-2 size-1.5 shrink-0 bg-purple" />
+                <span className="leading-relaxed">{renderBold(b)}</span>
+              </li>
+            ))}
+          </ul>
+          {restBullets.length > 0 && (
+            <div
+              className={
+                "grid transition-[grid-template-rows,opacity,margin] duration-300 ease-out " +
+                (open
+                  ? "mt-3 grid-rows-[1fr] opacity-100"
+                  : "mt-0 grid-rows-[0fr] opacity-0")
+              }
+            >
+              <div className="overflow-hidden">
+                <ul className="space-y-3 text-sm text-fg-muted">
+                  {restBullets.map((b, i) => (
+                    <li
+                      key={i}
+                      className={
+                        "flex gap-3 transition-all duration-500 " +
+                        (open
+                          ? "translate-y-0 opacity-100"
+                          : "translate-y-1 opacity-0")
+                      }
+                      style={{
+                        transitionDelay: open ? `${80 + i * 60}ms` : "0ms",
+                      }}
+                    >
+                      <span className="mt-2 size-1.5 shrink-0 bg-purple" />
+                      <span className="leading-relaxed">{renderBold(b)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+        </div>
+        {restBullets.length > 0 && (
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            className="mt-3 inline-flex cursor-pointer items-center gap-1 text-xs uppercase tracking-wider text-purple transition-colors hover:text-fg"
           >
-            <span>{open ? "less" : "more"}</span>
+            <span>{open ? "less" : `${restBullets.length} more`}</span>
             <ChevronDown
               className={
                 "size-3.5 transition-transform duration-300 " +
                 (open ? "rotate-180" : "")
               }
             />
-          </span>
-        </button>
-        <div
-          className={
-            "grid transition-[grid-template-rows,opacity,margin] duration-300 ease-out " +
-            (open
-              ? "mt-4 grid-rows-[1fr] opacity-100"
-              : "mt-0 grid-rows-[0fr] opacity-0")
-          }
-        >
-          <div className="overflow-hidden">
-            <div className="border-l-2 border-purple/40 bg-purple/[0.04] py-4 pl-5 pr-4">
-              <ul className="space-y-3 text-sm text-fg-muted">
-                {exp.bullets.map((b, i) => (
-                  <li
-                    key={i}
-                    className={
-                      "flex gap-3 transition-all duration-500 " +
-                      (open
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-1 opacity-0")
-                    }
-                    style={{ transitionDelay: open ? `${80 + i * 60}ms` : "0ms" }}
-                  >
-                    <span className="mt-2 size-1.5 shrink-0 bg-purple" />
-                    <span className="leading-relaxed">{renderBold(b)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+          </button>
+        )}
       </Card>
     </li>
   )

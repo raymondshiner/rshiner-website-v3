@@ -120,7 +120,7 @@ async function verify(label, ctx) {
 
   await step('hero headline present', async () => {
     const h1 = await page.getByRole('heading', { level: 1 }).textContent()
-    if (!/Code was the medium/i.test(h1 ?? ''))
+    if (!/Unique problems/i.test(h1 ?? ''))
       throw new Error(`got "${h1?.trim()}"`)
   })
 
@@ -136,20 +136,19 @@ async function verify(label, ctx) {
 
   // ---- WORKFLOW SECTION ----
   await step('workflow heading present', async () => {
-    await page.getByRole('heading', { name: /my team/i }).scrollIntoViewIfNeeded()
-  })
-
-  await step('all three agents named', async () => {
-    for (const name of ['Jarvis', 'Friday', 'Smith']) {
-      const visible = await page.getByText(name, { exact: true }).first().isVisible()
-      if (!visible) throw new Error(`${name} not visible`)
-    }
-  })
-
-  await step('what-stays-human section present', async () => {
     await page
-      .getByRole('heading', { name: /what stays human/i })
+      .getByRole('heading', { name: /AI is in the toolchain/i })
       .scrollIntoViewIfNeeded()
+  })
+
+  await step('delegation split subsections present', async () => {
+    for (const name of [
+      /what I delegate/i,
+      /what stays human/i,
+      /how output earns trust/i,
+    ]) {
+      await page.getByRole('heading', { name }).scrollIntoViewIfNeeded()
+    }
   })
 
   await page.screenshot({
@@ -162,7 +161,8 @@ async function verify(label, ctx) {
 
   await step('now page loads', async () => {
     await page
-      .getByText(/Looking for work/i)
+      .getByText(/Available now/i)
+      .first()
       .waitFor({ state: 'visible', timeout: 5000 })
   })
 
@@ -224,7 +224,7 @@ async function verify(label, ctx) {
   })
 
   await step('Ask Raymond opens and closes via keyboard (Esc)', async () => {
-    const trigger = page.getByRole('button', { name: /open ask raymond/i })
+    const trigger = page.getByRole('button', { name: /ask about my work/i })
     await trigger.click()
     await page.getByRole('dialog', { name: /ask raymond/i }).waitFor({
       timeout: 2000,
